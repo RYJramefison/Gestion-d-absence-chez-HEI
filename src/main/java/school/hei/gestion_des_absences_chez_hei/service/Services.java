@@ -31,4 +31,8 @@ public class Services {
     public void removeStudent(String id){
         DAO.deleteStudent(id);
     }
+
+    public void updateStudent(String id, Student toUpdate){
+        DAO.updateStudent(id, toUpdate);
+    }
 }

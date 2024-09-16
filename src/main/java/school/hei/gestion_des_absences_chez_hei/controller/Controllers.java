@@ -31,4 +31,10 @@ public class Controllers {
         services.removeStudent(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
+    @PutMapping("/updateStudent/{id}")
+    public ResponseEntity<Void> updateStudent(@PathVariable String id, @RequestBody Student student) {
+        services.updateStudent(id, student);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 }

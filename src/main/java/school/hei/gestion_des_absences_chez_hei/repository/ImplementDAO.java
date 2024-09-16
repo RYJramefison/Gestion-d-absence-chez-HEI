@@ -64,7 +64,25 @@ public class ImplementDAO implements DAO {
 
     @Override
     public void updateStudent(String id, Student student) {
+        String sql = "UPDATE student SET id=?, firstName=?, lastName=?, email=?, contact=?, universityYears=?, status=? WHERE id=?";
 
+        try (Connection conn = this.connection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, student.getId());
+            ps.setString(2, student.getFirstName());
+            ps.setString(3, student.getLastName());
+            ps.setString(4, student.getEmail());
+            ps.setString(5, student.getContact());
+            ps.setString(6, student.getUniversityYears());
+            ps.setString(7, student.getStatus());
+            ps.setString(8, id);
+
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
