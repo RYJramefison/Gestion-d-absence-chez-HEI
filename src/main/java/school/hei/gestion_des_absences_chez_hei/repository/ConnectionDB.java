@@ -1,8 +1,12 @@
 package school.hei.gestion_des_absences_chez_hei.repository;
 
+import lombok.Getter;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
+@Getter
 
 public class ConnectionDB {
     private Connection connection = null;

@@ -10,14 +10,13 @@ import lombok.ToString;
 @ToString
 
 public class Student extends Person{
-    private String status;
-
     private String universityYears;
 
-    public Student(String id, String name, String email, String contact, String status, String universityYears) {
-        super(id, name, email, contact);
-        this.status = status;
-        this.universityYears = universityYears;
-    }
+    private String status;
 
+    public Student(String id, String firstName, String lastName, String email, String contact, String universityYears, String status) {
+        super(id, firstName, lastName, email, contact);
+        this.universityYears = universityYears;
+        this.status = status;
+    }
 }
