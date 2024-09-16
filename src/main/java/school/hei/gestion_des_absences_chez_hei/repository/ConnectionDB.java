@@ -18,7 +18,7 @@ public class ConnectionDB {
         }
         try {
             connection = DriverManager.getConnection(System.getenv("db_url"), System.getenv("db_user"), System.getenv("db_password"));
-            System.out.println("bienvenue sur le projet de gestion d'abscence shez HEI");
+            System.out.println("bienvenue sur le projet de gestion d'absence chez HEI");
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -23,4 +23,8 @@ public class Services {
         return DAO.getAllStudent();
     }
 
+
+    public void addStudent(Student student){
+        DAO.saveStudent(student);
+    }
 }

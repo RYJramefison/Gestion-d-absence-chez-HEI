@@ -15,13 +15,12 @@ public class ImplementDAO implements DAO {
     @Override
     public List<Student> getAllStudent() {
         List<Student> students = new ArrayList<>();
-        String sql = "SELECT * FROM student";  // Nom correct de la table (student au lieu de todo)
+        String sql = "SELECT * FROM student";
 
         try (Statement stm = this.connection.getConnection().createStatement();
              ResultSet res = stm.executeQuery(sql)) {
 
             while (res.next()) {
-                // Extraire les données du ResultSet pour créer un nouvel objet Student
                 Student student = new Student(
                         res.getString("id"),
                         res.getString("firstName"),
@@ -41,8 +40,8 @@ public class ImplementDAO implements DAO {
     }
 
     @Override
-    public void save(Student student) {
-        String sql = "INSERT INTO etudiant (id, firstName, lastName, email, contact, universityYears, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    public void saveStudent(Student student) {
+        String sql = "INSERT INTO student (id, firstName, lastName, email, contact, universityYears, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = this.connection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -57,24 +56,19 @@ public class ImplementDAO implements DAO {
 
             ps.executeUpdate();
 
-
         } catch (SQLException e) {
             e.printStackTrace();
 
         }
+    }
 
+    @Override
+    public void updateStudent(String id, Student student) {
 
     }
 
     @Override
-    public void update(String id, Student student) {
+    public void deleteStudent(String id) {
 
     }
-
-    @Override
-    public void delete(String id) {
-
-    }
-
-
 }

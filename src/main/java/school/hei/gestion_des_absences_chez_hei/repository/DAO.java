@@ -8,10 +8,10 @@ public interface DAO {
 
     List<Student> getAllStudent();
 
-    void save(Student student);
+    void saveStudent(Student student);
 
-    void update(String id, Student student);
+    void updateStudent(String id, Student student);
 
-    void delete(String id);
+    void deleteStudent(String id);
 
 }
