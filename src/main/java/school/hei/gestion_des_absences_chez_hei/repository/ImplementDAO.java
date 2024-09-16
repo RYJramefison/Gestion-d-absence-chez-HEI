@@ -13,7 +13,7 @@ public class ImplementDAO implements DAO {
     ConnectionDB connection = new ConnectionDB();
 
     @Override
-    public List<Student> allStudent() {
+    public List<Student> getAllStudent() {
         List<Student> students = new ArrayList<>();
         String sql = "SELECT * FROM student";  // Nom correct de la table (student au lieu de todo)
 
@@ -31,7 +31,7 @@ public class ImplementDAO implements DAO {
                         res.getString("universityYears"),
                         res.getString("status")
                 );
-                students.add(student);  // Ajouter le Student à la liste
+                students.add(student);
             }
         } catch (SQLException e) {
             e.printStackTrace();

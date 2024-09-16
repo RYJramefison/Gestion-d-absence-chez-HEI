@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface DAO {
 
-    List<Student> allStudent();
+    List<Student> getAllStudent();
 
     void save(Student student);
 
