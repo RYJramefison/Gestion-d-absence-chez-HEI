@@ -1,5 +1,4 @@
 package school.hei.gestion_des_absences_chez_hei.repository;
 
-public interface DAO {
-
+public class ImplementDAO {
 }
