@@ -69,6 +69,18 @@ public class ImplementDAO implements DAO {
 
     @Override
     public void deleteStudent(String id) {
+        String sql = "DELETE FROM student WHERE id = ?";
 
+        try (Connection conn = this.connection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, id);
+
+            int affectedRows = ps.executeUpdate();
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
