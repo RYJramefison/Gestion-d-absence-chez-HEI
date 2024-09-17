@@ -1,5 +1,6 @@
 package school.hei.gestion_des_absences_chez_hei.repository;
 
+import school.hei.gestion_des_absences_chez_hei.entity.Course;
 import school.hei.gestion_des_absences_chez_hei.entity.Student;
 
 import java.util.List;
@@ -18,4 +19,15 @@ public interface DAO {
 
     void deleteStudent(String id);
 
+    // CRUD COURSE
+
+    List<Course> getAllCourse();
+
+    Student getOneCourse(int id);
+
+    void saveCourse(Course course);
+
+    void updateCourse(int id, Course course);
+
+    void deleteCourse(int id);
 }

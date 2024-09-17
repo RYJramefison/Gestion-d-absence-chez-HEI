@@ -1,6 +1,7 @@
 package school.hei.gestion_des_absences_chez_hei.repository;
 
 import org.springframework.stereotype.Repository;
+import school.hei.gestion_des_absences_chez_hei.entity.Course;
 import school.hei.gestion_des_absences_chez_hei.entity.Student;
 
 import java.sql.*;
@@ -135,4 +136,34 @@ public class ImplementDAO implements DAO {
             e.printStackTrace();
         }
     }
+
+
+    // CRUD COURSE
+
+    @Override
+    public List<Course> getAllCourse() {
+        return List.of();
+    }
+
+    @Override
+    public Student getOneCourse(int id) {
+        return null;
+    }
+
+    @Override
+    public void saveCourse(Course course) {
+
+    }
+
+    @Override
+    public void updateCourse(int id, Course course) {
+
+    }
+
+    @Override
+    public void deleteCourse(int id) {
+
+    }
+
+
 }
