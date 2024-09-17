@@ -15,9 +15,14 @@ import java.util.List;
 public class Controllers {
     private Services services;
 
-    @GetMapping("/allStudent")
+    @GetMapping("/students")
     public List<Student> getALlTodo(){
         return services.getAllTodos();
+    }
+
+    @GetMapping("/students/{id}")
+    public Student getStudentById(@PathVariable String id) {
+        return services.getOneStudent(id);
     }
 
     @PostMapping("/addStudent")

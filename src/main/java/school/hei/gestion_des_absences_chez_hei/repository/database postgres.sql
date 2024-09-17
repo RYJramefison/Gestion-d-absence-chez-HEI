@@ -19,4 +19,6 @@ VALUES ('S004', 'Diana', 'Miller', 'diana.miller@example.com', '6677889900', '5'
 INSERT INTO student (id, firstName, lastName, email, contact, universityYears, status)
 VALUES ('S005', 'Ethan', 'Davis', 'ethan.davis@example.com', '4433221100', '1', 'active');
 
+-- pagination
 
+Select * from student limit 5 offset 5;

@@ -6,7 +6,11 @@ import java.util.List;
 
 public interface DAO {
 
+    // CRUD STUDENT
+
     List<Student> getAllStudent();
+
+    Student getOneStudent(String id);
 
     void saveStudent(Student student);
 

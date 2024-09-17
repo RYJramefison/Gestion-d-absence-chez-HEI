@@ -35,4 +35,8 @@ public class Services {
     public void updateStudent(String id, Student toUpdate){
         DAO.updateStudent(id, toUpdate);
     }
+
+    public Student getOneStudent(String id){
+        return DAO.getOneStudent(id);
+    }
 }

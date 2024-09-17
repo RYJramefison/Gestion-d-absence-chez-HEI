@@ -12,6 +12,8 @@ import java.util.List;
 public class ImplementDAO implements DAO {
     ConnectionDB connection = new ConnectionDB();
 
+    // CRUD  STUDENT
+
     @Override
     public List<Student> getAllStudent() {
         List<Student> students = new ArrayList<>();
@@ -38,6 +40,38 @@ public class ImplementDAO implements DAO {
 
         return students;
     }
+
+    @Override
+    public Student getOneStudent(String id) {
+        Student student = null;
+        String sql = "SELECT * FROM student WHERE id = ?";
+
+        try (Connection conn = this.connection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, id);
+
+            ResultSet res = ps.executeQuery();
+
+            if (res.next()) {
+                student = new Student(
+                        res.getString("id"),
+                        res.getString("firstName"),
+                        res.getString("lastName"),
+                        res.getString("email"),
+                        res.getString("contact"),
+                        res.getString("universityYears"),
+                        res.getString("status")
+                );
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return student;
+    }
+
 
     @Override
     public void saveStudent(Student student) {
