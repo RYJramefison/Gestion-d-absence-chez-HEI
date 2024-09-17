@@ -142,12 +142,52 @@ public class ImplementDAO implements DAO {
 
     @Override
     public List<Course> getAllCourse() {
-        return List.of();
+        List<Course> courses = new ArrayList<>();
+        String sql = "SELECT * FROM course";
+
+        try (Statement stm = this.connection.getConnection().createStatement();
+             ResultSet res = stm.executeQuery(sql)) {
+
+            while (res.next()) {
+                Course course = new Course(
+                        res.getInt("id"),
+                        res.getString("name"),
+                        res.getObject("presenceSheet", List.class)
+                );
+                courses.add(course);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return courses;
     }
 
     @Override
-    public Student getOneCourse(int id) {
-        return null;
+    public Course getOneCourse(int id) {
+        Course course = null;
+        String sql = "SELECT * FROM course WHERE id = ?";
+
+        try (Connection conn = this.connection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+
+            ResultSet res = ps.executeQuery();
+
+            if (res.next()) {
+                course = new Course(
+                        res.getInt("id"),
+                        res.getString("name"),
+                        res.getObject("presenceSheet", List.class)
+                );
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return course;
     }
 
     @Override

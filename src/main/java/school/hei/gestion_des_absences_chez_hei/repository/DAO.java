@@ -23,7 +23,7 @@ public interface DAO {
 
     List<Course> getAllCourse();
 
-    Student getOneCourse(int id);
+    Course getOneCourse(int id);
 
     void saveCourse(Course course);
 

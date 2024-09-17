@@ -15,7 +15,5 @@ public class Course {
 
     private String name;
 
-    private Integer credit;
-
     private List<Student> presenceSheet;
 }
