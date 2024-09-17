@@ -10,7 +10,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 
-public class Person {
+public abstract class Person {
     private String id;
 
     private String firstName;
