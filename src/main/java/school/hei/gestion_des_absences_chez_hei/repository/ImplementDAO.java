@@ -192,7 +192,21 @@ public class ImplementDAO implements DAO {
 
     @Override
     public void saveCourse(Course course) {
+        String sql = "INSERT INTO course (id, name, presenceSheet) VALUES (?, ?, ?)";
 
+        try (Connection conn = this.connection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, course.getId());
+            ps.setString(2, course.getName());
+            ps.setObject(3, course.getPresenceSheet());
+
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
     }
 
     @Override
@@ -222,9 +236,7 @@ public class ImplementDAO implements DAO {
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, id);
-
-            int affectedRows = ps.executeUpdate();
-
+            ps.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
