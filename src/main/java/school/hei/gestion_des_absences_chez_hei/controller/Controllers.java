@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import school.hei.gestion_des_absences_chez_hei.entity.Course;
 import school.hei.gestion_des_absences_chez_hei.entity.Student;
 import school.hei.gestion_des_absences_chez_hei.service.Services;
 
@@ -16,8 +17,8 @@ public class Controllers {
     private Services services;
 
     @GetMapping("/students")
-    public List<Student> getALlTodo(){
-        return services.getAllTodos();
+    public List<Student> getALlStudent(){
+        return services.getAllStudent();
     }
 
     @GetMapping("/students/{id}")
@@ -26,7 +27,7 @@ public class Controllers {
     }
 
     @PostMapping("/addStudent")
-    public ResponseEntity<Void> createTodo(@RequestBody Student toAdd) {
+    public ResponseEntity<Void> createStudent(@RequestBody Student toAdd) {
         services.addStudent(toAdd);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -40,6 +41,34 @@ public class Controllers {
     @PutMapping("/updateStudent/{id}")
     public ResponseEntity<Void> updateStudent(@PathVariable String id, @RequestBody Student student) {
         services.updateStudent(id, student);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @GetMapping("/course")
+    public List<Course> getALlCourse(){
+        return services.getAllCourse();
+    }
+
+    @GetMapping("/course/{id}")
+    public Course getStudentById(@PathVariable int id) {
+        return services.getOneCourse(id);
+    }
+
+    @PostMapping("/addCourse")
+    public ResponseEntity<Void> createCourse(@RequestBody Course toAdd) {
+        services.addCourse(toAdd);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @DeleteMapping("/deleteCourse/{id}")
+    public ResponseEntity<Void> deleteCourse(@PathVariable int id) {
+        services.removeCourse(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PutMapping("/updateStudent/{id}")
+    public ResponseEntity<Void> updateCourse(@PathVariable int id, @RequestBody Course course) {
+        services.updateCourse(id, course);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
