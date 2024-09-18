@@ -66,7 +66,7 @@ public class Controllers {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @PutMapping("/updateStudent/{id}")
+    @PutMapping("/updateCourse/{id}")
     public ResponseEntity<Void> updateCourse(@PathVariable int id, @RequestBody Course course) {
         services.updateCourse(id, course);
         return ResponseEntity.status(HttpStatus.OK).build();
