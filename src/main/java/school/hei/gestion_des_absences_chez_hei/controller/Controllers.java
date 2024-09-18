@@ -85,7 +85,7 @@ public class Controllers {
     }
 
     @GetMapping("/admin/{id}")
-    public Admin getAdminById(@PathVariable String id) {
+    public Admin getAdminById(@PathVariable int id) {
         return services.getOneAdmin(id);
     }
 
@@ -96,13 +96,13 @@ public class Controllers {
     }
 
     @DeleteMapping("/deleteCourse/{id}")
-    public ResponseEntity<Void> deleteAdmin(@PathVariable String id) {
+    public ResponseEntity<Void> deleteAdmin(@PathVariable int id) {
         services.removeAdmin(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @PutMapping("/updateCourse/{id}")
-    public ResponseEntity<Void> updateAdmin(@PathVariable String id, @RequestBody Admin admin) {
+    public ResponseEntity<Void> updateAdmin(@PathVariable int id, @RequestBody Admin admin) {
         services.updateAdmin(id, admin);
         return ResponseEntity.status(HttpStatus.OK).build();
     }

@@ -76,15 +76,15 @@ public class Services {
         DAO.saveAdmin(admin);
     }
 
-    public void removeAdmin(String id){
+    public void removeAdmin(int id){
         DAO.deleteAdmin(id);
     }
 
-    public void updateAdmin(String id, Admin toUpdate){
+    public void updateAdmin(int id, Admin toUpdate){
         DAO.updateAdmin(id, toUpdate);
     }
 
-    public Admin getOneAdmin(String id){
+    public Admin getOneAdmin(int id){
         return DAO.getOneAdmin(id);
     }
 }

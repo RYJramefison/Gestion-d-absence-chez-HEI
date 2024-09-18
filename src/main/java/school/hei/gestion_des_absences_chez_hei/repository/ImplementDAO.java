@@ -260,7 +260,7 @@ public class ImplementDAO implements DAO {
 
             while (res.next()) {
                 Admin admin = new Admin(
-                        res.getString("id"),
+                        res.getInt("id"),
                         res.getString("firstName"),
                         res.getString("lastName"),
                         res.getString("email"),
@@ -276,20 +276,20 @@ public class ImplementDAO implements DAO {
     }
 
     @Override
-    public Admin getOneAdmin(String id) {
+    public Admin getOneAdmin(int id) {
         Admin admin = null;
         String sql = "SELECT * FROM admin WHERE id = ?";
 
         try (Connection conn = this.connection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setString(1, id);
+            ps.setInt(1, id);
 
             ResultSet res = ps.executeQuery();
 
             if (res.next()) {
                 admin = new Admin(
-                        res.getString("id"),
+                        res.getInt("id"),
                         res.getString("firstName"),
                         res.getString("lastName"),
                         res.getString("email"),
@@ -311,7 +311,7 @@ public class ImplementDAO implements DAO {
         try (Connection conn = this.connection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setString(1, admin.getId());
+            ps.setInt(1, admin.getId());
             ps.setString(2, admin.getFirstName());
             ps.setString(3, admin.getLastName());
             ps.setString(4, admin.getEmail());
@@ -327,18 +327,18 @@ public class ImplementDAO implements DAO {
     }
 
     @Override
-    public void updateAdmin(String id, Admin admin) {
+    public void updateAdmin(int id, Admin admin) {
         String sql = "UPDATE admin SET id=?, firstName=?, lastName=?, email=?, contact=? WHERE id=?";
 
         try (Connection conn = this.connection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setString(1, admin.getId());
+            ps.setInt(1, admin.getId());
             ps.setString(2, admin.getFirstName());
             ps.setString(3, admin.getLastName());
             ps.setString(4, admin.getEmail());
             ps.setString(5, admin.getContact());
-            ps.setString(8, id);
+            ps.setInt(8, id);
 
             ps.executeUpdate();
 
@@ -348,13 +348,13 @@ public class ImplementDAO implements DAO {
     }
 
     @Override
-    public void deleteAdmin(String id) {
+    public void deleteAdmin(int id) {
         String sql = "DELETE FROM admin WHERE id = ?";
 
         try (Connection conn = this.connection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setString(1, id);
+            ps.setInt(1, id);
 
             ps.executeUpdate();
 

@@ -11,7 +11,6 @@ import lombok.ToString;
 @ToString
 
 public abstract class Person {
-    private String id;
 
     private String firstName;
 

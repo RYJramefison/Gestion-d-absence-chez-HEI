@@ -36,11 +36,11 @@ public interface DAO {
 
     List<Admin> getAllAdmin();
 
-    Admin getOneAdmin(String id);
+    Admin getOneAdmin(int id);
 
     void saveAdmin(Admin admin);
 
-    void updateAdmin(String id, Admin admin);
+    void updateAdmin(int id, Admin admin);
 
-    void deleteAdmin(String id);
+    void deleteAdmin(int id);
 }
