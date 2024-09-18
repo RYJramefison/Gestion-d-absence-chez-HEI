@@ -1,5 +1,6 @@
 package school.hei.gestion_des_absences_chez_hei.repository;
 
+import school.hei.gestion_des_absences_chez_hei.entity.Admin;
 import school.hei.gestion_des_absences_chez_hei.entity.Course;
 import school.hei.gestion_des_absences_chez_hei.entity.Student;
 
@@ -30,4 +31,16 @@ public interface DAO {
     void updateCourse(int id, Course course);
 
     void deleteCourse(int id);
+
+    // CRUD ADMIN
+
+    List<Admin> getAllAdmin();
+
+    Admin getOneAdmin(String id);
+
+    void saveAdmin(Admin admin);
+
+    void updateAdmin(String id, Admin admin);
+
+    void deleteAdmin(String id);
 }

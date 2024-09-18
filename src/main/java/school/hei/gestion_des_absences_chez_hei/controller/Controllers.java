@@ -44,7 +44,7 @@ public class Controllers {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @GetMapping("/course")
+    @GetMapping("/courses")
     public List<Course> getALlCourse(){
         return services.getAllCourse();
     }
@@ -68,6 +68,33 @@ public class Controllers {
 
     @PutMapping("/updateCourse/{id}")
     public ResponseEntity<Void> updateCourse(@PathVariable int id, @RequestBody Course course) {
+        services.updateCourse(id, course);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+    @GetMapping("/admins")
+    public List<Course> getALlAdmin(){
+        return services.getAllCourse();
+    }
+
+    @GetMapping("/admin/{id}")
+    public Course getAdminById(@PathVariable int id) {
+        return services.getOneCourse(id);
+    }
+
+    @PostMapping("/addAdmin")
+    public ResponseEntity<Void> createAdmin(@RequestBody Course toAdd) {
+        services.addCourse(toAdd);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @DeleteMapping("/deleteCourse/{id}")
+    public ResponseEntity<Void> deleteAdmin(@PathVariable int id) {
+        services.removeCourse(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PutMapping("/updateCourse/{id}")
+    public ResponseEntity<Void> updateAdmin(@PathVariable int id, @RequestBody Course course) {
         services.updateCourse(id, course);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
