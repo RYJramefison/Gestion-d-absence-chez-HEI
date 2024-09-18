@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import org.springframework.stereotype.Service;
+import school.hei.gestion_des_absences_chez_hei.entity.Admin;
 import school.hei.gestion_des_absences_chez_hei.entity.Course;
 import school.hei.gestion_des_absences_chez_hei.entity.Student;
 import school.hei.gestion_des_absences_chez_hei.repository.ImplementDAO;
@@ -19,6 +20,8 @@ import java.util.List;
 
 public class Services {
     private ImplementDAO DAO;
+
+    // service STUDENT
 
     public List<Student> getAllStudent(){
         return DAO.getAllStudent();
@@ -41,6 +44,8 @@ public class Services {
         return DAO.getOneStudent(id);
     }
 
+    // SERVICE COURSE
+
     public List<Course> getAllCourse(){
         return DAO.getAllCourse();
     }
@@ -59,5 +64,27 @@ public class Services {
 
     public Course getOneCourse(int id){
         return DAO.getOneCourse(id);
+    }
+
+    // SERVICE ADMIN
+
+    public List<Admin> getAllAdmin(){
+        return DAO.getAllAdmin();
+    }
+
+    public void addAdmin(Admin admin){
+        DAO.saveAdmin(admin);
+    }
+
+    public void removeAdmin(String id){
+        DAO.deleteAdmin(id);
+    }
+
+    public void updateAdmin(String id, Admin toUpdate){
+        DAO.updateAdmin(id, toUpdate);
+    }
+
+    public Admin getOneAdmin(String id){
+        return DAO.getOneAdmin(id);
     }
 }
