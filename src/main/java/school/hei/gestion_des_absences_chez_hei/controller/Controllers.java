@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import school.hei.gestion_des_absences_chez_hei.entity.Admin;
 import school.hei.gestion_des_absences_chez_hei.entity.Course;
 import school.hei.gestion_des_absences_chez_hei.entity.Student;
 import school.hei.gestion_des_absences_chez_hei.service.Services;
@@ -15,6 +16,8 @@ import java.util.List;
 @RestController
 public class Controllers {
     private Services services;
+
+    // CONTROLLER STUDENT
 
     @GetMapping("/students")
     public List<Student> getALlStudent(){
@@ -44,6 +47,8 @@ public class Controllers {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+    // CONTROLLER COURSE
+
     @GetMapping("/courses")
     public List<Course> getALlCourse(){
         return services.getAllCourse();
@@ -71,31 +76,34 @@ public class Controllers {
         services.updateCourse(id, course);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
+    // CONTROLLER ADMIN
+
     @GetMapping("/admins")
-    public List<Course> getALlAdmin(){
-        return services.getAllCourse();
+    public List<Admin> getALlAdmin(){
+        return services.getAllAdmin();
     }
 
     @GetMapping("/admin/{id}")
-    public Course getAdminById(@PathVariable int id) {
-        return services.getOneCourse(id);
+    public Admin getAdminById(@PathVariable String id) {
+        return services.getOneAdmin(id);
     }
 
     @PostMapping("/addAdmin")
-    public ResponseEntity<Void> createAdmin(@RequestBody Course toAdd) {
-        services.addCourse(toAdd);
+    public ResponseEntity<Void> createAdmin(@RequestBody Admin toAdd) {
+        services.addAdmin(toAdd);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @DeleteMapping("/deleteCourse/{id}")
-    public ResponseEntity<Void> deleteAdmin(@PathVariable int id) {
-        services.removeCourse(id);
+    public ResponseEntity<Void> deleteAdmin(@PathVariable String id) {
+        services.removeAdmin(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @PutMapping("/updateCourse/{id}")
-    public ResponseEntity<Void> updateAdmin(@PathVariable int id, @RequestBody Course course) {
-        services.updateCourse(id, course);
+    public ResponseEntity<Void> updateAdmin(@PathVariable String id, @RequestBody Admin admin) {
+        services.updateAdmin(id, admin);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
