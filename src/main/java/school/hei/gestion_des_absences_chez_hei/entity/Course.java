@@ -2,6 +2,7 @@ package school.hei.gestion_des_absences_chez_hei.entity;
 
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @AllArgsConstructor
@@ -16,4 +17,7 @@ public class Course {
     private String name;
 
     private List<Student> presenceSheet;
+
+    private LocalDate date;
+
 }

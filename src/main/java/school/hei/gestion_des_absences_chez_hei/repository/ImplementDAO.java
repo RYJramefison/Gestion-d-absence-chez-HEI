@@ -5,6 +5,7 @@ import school.hei.gestion_des_absences_chez_hei.entity.Course;
 import school.hei.gestion_des_absences_chez_hei.entity.Student;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -152,7 +153,8 @@ public class ImplementDAO implements DAO {
                 Course course = new Course(
                         res.getInt("id"),
                         res.getString("name"),
-                        res.getObject("presenceSheet", List.class)
+                        res.getObject("presenceSheet", List.class),
+                        res.getObject("date", LocalDate.class)
                 );
                 courses.add(course);
             }
@@ -179,7 +181,8 @@ public class ImplementDAO implements DAO {
                 course = new Course(
                         res.getInt("id"),
                         res.getString("name"),
-                        res.getObject("presenceSheet", List.class)
+                        res.getObject("presenceSheet", List.class),
+                        res.getObject("date", LocalDate.class)
                 );
             }
 
