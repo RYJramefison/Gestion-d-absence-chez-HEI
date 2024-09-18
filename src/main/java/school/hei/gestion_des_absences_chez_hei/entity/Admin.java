@@ -5,7 +5,6 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode
 
 public class Admin extends Person{
     private int id;
@@ -14,5 +13,4 @@ public class Admin extends Person{
         super(firstName, lastName, email, contact);
         this.id = id;
     }
-
 }

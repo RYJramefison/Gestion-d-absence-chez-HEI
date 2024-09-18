@@ -75,7 +75,6 @@ public class ImplementDAO implements DAO {
         return student;
     }
 
-
     @Override
     public void saveStudent(Student student) {
         String sql = "INSERT INTO student (id, firstName, lastName, email, contact, universityYears, status) VALUES (?, ?, ?, ?, ?, ?, ?)";

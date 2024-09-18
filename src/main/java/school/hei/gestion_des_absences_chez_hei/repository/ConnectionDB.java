@@ -13,13 +13,16 @@ public class ConnectionDB {
     public ConnectionDB() {
         try {
             Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e) {
+        }
+        catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+
         try {
             connection = DriverManager.getConnection(System.getenv("db_url"), System.getenv("db_user"), System.getenv("db_password"));
             System.out.println("bienvenue sur le projet de gestion d'absence chez HEI");
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
     }

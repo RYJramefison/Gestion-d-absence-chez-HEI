@@ -43,4 +43,8 @@ public interface DAO {
     void updateAdmin(int id, Admin admin);
 
     void deleteAdmin(int id);
+
+    // CRUD ABSENCE
+
+
 }

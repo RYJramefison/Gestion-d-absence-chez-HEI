@@ -19,5 +19,4 @@ public class Course {
     private List<Student> presenceSheet;
 
     private LocalDate date;
-
 }

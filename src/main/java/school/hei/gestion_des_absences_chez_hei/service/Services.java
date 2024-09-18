@@ -21,12 +21,11 @@ import java.util.List;
 public class Services {
     private ImplementDAO DAO;
 
-    // service STUDENT
+    // SERVICE STUDENT
 
     public List<Student> getAllStudent(){
         return DAO.getAllStudent();
     }
-
 
     public void addStudent(Student student){
         DAO.saveStudent(student);
