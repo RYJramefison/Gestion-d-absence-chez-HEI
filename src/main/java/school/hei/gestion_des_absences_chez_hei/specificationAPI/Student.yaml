@@ -1,0 +1,133 @@
+openapi: 3.0.0
+info:
+  title: Student Management API
+  description: API for managing students in the system.
+  version: 1.0.0
+paths:
+  /students:
+    get:
+      summary: List of all students
+      responses:
+        '200':
+          description: A list of students
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Student'
+    post:
+      summary: Create a new student
+      requestBody:
+        description: Student object that needs to be added
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Student'
+        required: true
+      responses:
+        '201':
+          description: Student created successfully
+        '400':
+          description: Invalid input
+
+  /students/{id}:
+    get:
+      summary: Retrieve a student by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the student to retrieve
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: A single student
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
+        '404':
+          description: Student not found
+
+    put:
+      summary: Update an existing student
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the student to update
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        description: Student object that needs to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Student'
+        required: true
+      responses:
+        '200':
+          description: Student updated successfully
+        '400':
+          description: Invalid input
+        '404':
+          description: Student not found
+
+    delete:
+      summary: Delete a student by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the student to delete
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '204':
+          description: Student deleted successfully
+        '404':
+          description: Student not found
+
+components:
+  schemas:
+    Student:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        firstName:
+          type: string
+          example: "John"
+        lastName:
+          type: string
+          example: "Doe"
+        email:
+          type: string
+          example: "john.doe@example.com"
+        contact:
+          type: string
+          example: "+1234567890"
+        reference:
+          type: string
+          example: "REF12345"
+        universityYears:
+          type: string
+          example: "2020-2024"
+        status:
+          type: string
+          example: "Active"
+      required:
+        - id
+        - firstName
+        - lastName
+        - email
+        - contact
+        - reference
+        - universityYears
+        - status

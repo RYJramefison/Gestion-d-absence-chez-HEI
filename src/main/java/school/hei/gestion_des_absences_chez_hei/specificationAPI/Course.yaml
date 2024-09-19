@@ -1,0 +1,119 @@
+openapi: 3.0.0
+info:
+  title: Course Management API
+  description: API for managing courses in the system.
+  version: 1.0.0
+paths:
+  /courses:
+    get:
+      summary: Retrieve a list of all courses
+      responses:
+        '200':
+          description: A list of courses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Course'
+    post:
+      summary: Create a new course
+      requestBody:
+        description: Course object that needs to be added
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Course'
+        required: true
+      responses:
+        '201':
+          description: Course created successfully
+        '400':
+          description: Invalid input
+
+  /course/{id}:
+    get:
+      summary: Retrieve a course by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the course to retrieve
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: A single course
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+        '404':
+          description: Course not found
+
+    put:
+      summary: Update an existing course
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the course to update
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        description: Course object that needs to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Course'
+        required: true
+      responses:
+        '200':
+          description: Course updated successfully
+        '400':
+          description: Invalid input
+        '404':
+          description: Course not found
+
+    delete:
+      summary: Delete a course by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the course to delete
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '204':
+          description: Course deleted successfully
+        '404':
+          description: Course not found
+
+components:
+  schemas:
+    Course:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "Mathematics"
+        startCourse:
+          type: string
+          format: date-time
+          example: "2024-01-01T10:00:00"
+        endCourse:
+          type: string
+          format: date-time
+          example: "2024-06-01T12:00:00"
+      required:
+        - id
+        - name
+        - startCourse
+        - endCourse

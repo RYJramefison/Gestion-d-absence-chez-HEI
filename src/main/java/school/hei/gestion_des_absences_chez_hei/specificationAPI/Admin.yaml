@@ -1,0 +1,121 @@
+openapi: 3.0.0
+info:
+  title: Admin Management API
+  description: API for managing administrators in the system.
+  version: 1.0.0
+paths:
+  /admins:
+    get:
+      summary: Retrieve a list of all administrators
+      responses:
+        '200':
+          description: A list of administrators
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Admin'
+    post:
+      summary: Create a new administrator
+      requestBody:
+        description: Administrator object that needs to be added
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Admin'
+        required: true
+      responses:
+        '201':
+          description: Administrator created successfully
+        '400':
+          description: Invalid input
+
+  /admins/{id}:
+    get:
+      summary: Retrieve an administrator by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the administrator to retrieve
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: A single administrator
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Admin'
+        '404':
+          description: Administrator not found
+
+    put:
+      summary: Update an existing administrator
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the administrator to update
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        description: Administrator object that needs to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Admin'
+        required: true
+      responses:
+        '200':
+          description: Administrator updated successfully
+        '400':
+          description: Invalid input
+        '404':
+          description: Administrator not found
+
+    delete:
+      summary: Delete an administrator by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the administrator to delete
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '204':
+          description: Administrator deleted successfully
+        '404':
+          description: Administrator not found
+
+components:
+  schemas:
+    Admin:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        firstName:
+          type: string
+          example: "Jane"
+        lastName:
+          type: string
+          example: "Smith"
+        email:
+          type: string
+          example: "jane.smith@example.com"
+        contact:
+          type: string
+          example: "+1234567890"
+      required:
+        - id
+        - firstName
+        - lastName
+        - email
+        - contact

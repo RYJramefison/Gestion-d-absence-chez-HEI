@@ -49,33 +49,33 @@ public class Controllers {
 
     // CONTROLLER COURSE
 
-//    @GetMapping("/courses")
-//    public List<Course> getALlCourse(){
-//        return services.getAllCourse();
-//    }
-//
-//    @GetMapping("/course/{id}")
-//    public Course getCourseById(@PathVariable int id) {
-//        return services.getOneCourse(id);
-//    }
-//
-//    @PostMapping("/addCourse")
-//    public ResponseEntity<Void> createCourse(@RequestBody Course toAdd) {
-//        services.addCourse(toAdd);
-//        return ResponseEntity.status(HttpStatus.CREATED).build();
-//    }
-//
-//    @DeleteMapping("/deleteCourse/{id}")
-//    public ResponseEntity<Void> deleteCourse(@PathVariable int id) {
-//        services.removeCourse(id);
-//        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-//    }
-//
-//    @PutMapping("/updateCourse/{id}")
-//    public ResponseEntity<Void> updateCourse(@PathVariable int id, @RequestBody Course course) {
-//        services.updateCourse(id, course);
-//        return ResponseEntity.status(HttpStatus.OK).build();
-//    }
+    @GetMapping("/courses")
+    public List<Course> getALlCourse(){
+        return services.getAllCourse();
+    }
+
+    @GetMapping("/course/{id}")
+    public Course getCourseById(@PathVariable int id) {
+        return services.getOneCourse(id);
+    }
+
+    @PostMapping("/addCourse")
+    public ResponseEntity<Void> createCourse(@RequestBody Course toAdd) {
+        services.addCourse(toAdd);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @DeleteMapping("/deleteCourse/{id}")
+    public ResponseEntity<Void> deleteCourse(@PathVariable int id) {
+        services.removeCourse(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PutMapping("/updateCourse/{id}")
+    public ResponseEntity<Void> updateCourse(@PathVariable int id, @RequestBody Course course) {
+        services.updateCourse(id, course);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 
     // CONTROLLER ADMIN
 
