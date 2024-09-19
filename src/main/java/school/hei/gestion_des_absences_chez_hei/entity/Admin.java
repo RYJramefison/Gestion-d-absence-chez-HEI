@@ -7,10 +7,9 @@ import lombok.*;
 @ToString
 
 public class Admin extends Person{
-    private int id;
 
-    public Admin( int id, String firstName, String lastName, String email, String contact) {
-        super(firstName, lastName, email, contact);
-        this.id = id;
+
+    public Admin(int id, String firstName, String lastName, String email, String contact) {
+        super(id, firstName, lastName, email, contact);
     }
 }

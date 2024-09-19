@@ -31,15 +31,15 @@ public class Services {
         DAO.saveStudent(student);
     }
 
-    public void removeStudent(String id){
+    public void removeStudent(int id){
         DAO.deleteStudent(id);
     }
 
-    public void updateStudent(String id, Student toUpdate){
+    public void updateStudent(int id, Student toUpdate){
         DAO.updateStudent(id, toUpdate);
     }
 
-    public Student getOneStudent(String id){
+    public Student getOneStudent(int id){
         return DAO.getOneStudent(id);
     }
 

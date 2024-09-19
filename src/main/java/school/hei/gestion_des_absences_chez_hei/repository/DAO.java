@@ -12,13 +12,13 @@ public interface DAO {
 
     List<Student> getAllStudent();
 
-    Student getOneStudent(String id);
+    Student getOneStudent(int id);
 
     void saveStudent(Student student);
 
-    void updateStudent(String id, Student student);
+    void updateStudent(int id, Student student);
 
-    void deleteStudent(String id);
+    void deleteStudent(int id);
 
     // CRUD COURSE
 
