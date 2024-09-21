@@ -6,7 +6,9 @@ import school.hei.gestion_des_absences_chez_hei.entity.*;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 
@@ -396,6 +398,95 @@ public class ImplementDAO implements DAO {
         }
     }
 
+
+
+
+    @Override
+    public List<Map<String, Object>> getAllAbsences() {
+        List<Map<String, Object>> absences = new ArrayList<>();
+        String sql = "SELECT a.student_id, c.name AS course_name, c.startCourse, c.endCourse " +
+                "FROM absence a " +
+                "JOIN course c ON a.course_id = c.id";
+
+        try (Statement stm = this.connection.getConnection().createStatement();
+             ResultSet res = stm.executeQuery(sql)) {
+
+            while (res.next()) {
+                Map<String, Object> absence = new HashMap<>();
+                absence.put("student_id", res.getString("student_id"));
+                absence.put("course_name", res.getString("course_name"));
+                absence.put("startCourse", res.getTimestamp("startCourse").toLocalDateTime());
+                absence.put("endCourse", res.getTimestamp("endCourse").toLocalDateTime());
+                absences.add(absence);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return absences;
+    }
+
+
+    @Override
+    public void addAbsence(String studentId, int courseId) {
+        String sql = "INSERT INTO absence (student_id, course_id) VALUES (?, ?)";
+
+        try (Connection conn = this.connection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, studentId);
+            ps.setInt(2, courseId);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public List<Map<String, Object>> getAbsencesByStudentId(String studentId) {
+        List<Map<String, Object>> absences = new ArrayList<>();
+        String sql = "SELECT a.student_id, c.name AS course_name, c.startCourse, c.endCourse " +
+                "FROM absence a " +
+                "JOIN course c ON a.course_id = c.id WHERE a.student_id = ?";
+
+        try (Connection conn = this.connection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, studentId);
+            ResultSet res = ps.executeQuery();
+
+            while (res.next()) {
+                Map<String, Object> absence = new HashMap<>();
+                absence.put("student_id", res.getString("student_id"));
+                absence.put("course_name", res.getString("course_name"));
+                absence.put("startCourse", res.getTimestamp("startCourse").toLocalDateTime());
+                absence.put("endCourse", res.getTimestamp("endCourse").toLocalDateTime());
+                absences.add(absence);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return absences;
+    }
+
+    @Override
+    public void deleteAbsence(String studentId, int courseId) {
+        String sql = "DELETE FROM absence WHERE student_id = ? AND course_id = ?";
+
+        try (Connection conn = this.connection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, studentId);
+            ps.setInt(2, courseId);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 

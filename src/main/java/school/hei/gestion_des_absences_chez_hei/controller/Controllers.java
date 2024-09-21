@@ -4,12 +4,14 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import school.hei.gestion_des_absences_chez_hei.entity.Absence;
 import school.hei.gestion_des_absences_chez_hei.entity.Admin;
 import school.hei.gestion_des_absences_chez_hei.entity.Course;
 import school.hei.gestion_des_absences_chez_hei.entity.Student;
 import school.hei.gestion_des_absences_chez_hei.service.Services;
 
 import java.util.List;
+import java.util.Map;
 
 @AllArgsConstructor
 
@@ -105,5 +107,29 @@ public class Controllers {
     public ResponseEntity<Void> updateAdmin(@PathVariable String id, @RequestBody Admin admin) {
         services.updateAdmin(id, admin);
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    // ABSENCE
+
+    @GetMapping("/")
+    public List<Map<String, Object>> getAllAbsences() {
+        return services.getAllAbsences();
+    }
+
+    @GetMapping("/student/{studentId}")
+    public List<Map<String, Object>> getAbsencesByStudentId(@PathVariable String studentId) {
+        return services.getAbsencesByStudentId(studentId);
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<Void> createAbsence(@RequestBody Absence absenceRequest) {
+        services.addAbsence(absenceRequest.getStudent_id(), absenceRequest.getCourse_id());
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<Void> deleteAbsence(@RequestParam String studentId, @RequestParam int courseId) {
+        services.deleteAbsence(studentId, courseId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

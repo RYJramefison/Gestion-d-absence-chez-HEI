@@ -11,6 +11,7 @@ import school.hei.gestion_des_absences_chez_hei.entity.Student;
 import school.hei.gestion_des_absences_chez_hei.repository.ImplementDAO;
 
 import java.util.List;
+import java.util.Map;
 
 @AllArgsConstructor
 @Getter
@@ -86,4 +87,27 @@ public class Services {
     public Admin getOneAdmin(String id){
         return DAO.getOneAdmin(id);
     }
+
+    // SERVICE ABSENCE
+
+    // Récupérer toutes les absences
+    public List<Map<String, Object>> getAllAbsences() {
+        return DAO.getAllAbsences();
+    }
+
+    // Ajouter une absence
+    public void addAbsence(String studentId, int courseId) {
+        DAO.addAbsence(studentId, courseId);
+    }
+
+    // Récupérer les absences d'un étudiant spécifique
+    public List<Map<String, Object>> getAbsencesByStudentId(String studentId) {
+        return DAO.getAbsencesByStudentId(studentId);
+    }
+
+    // Supprimer une absence pour un étudiant spécifique et un cours donné
+    public void deleteAbsence(String studentId, int courseId) {
+        DAO.deleteAbsence(studentId, courseId);
+    }
+
 }

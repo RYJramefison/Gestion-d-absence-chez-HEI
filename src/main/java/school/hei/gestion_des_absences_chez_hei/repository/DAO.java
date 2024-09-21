@@ -1,10 +1,12 @@
 package school.hei.gestion_des_absences_chez_hei.repository;
 
+import school.hei.gestion_des_absences_chez_hei.entity.Absence;
 import school.hei.gestion_des_absences_chez_hei.entity.Admin;
 import school.hei.gestion_des_absences_chez_hei.entity.Course;
 import school.hei.gestion_des_absences_chez_hei.entity.Student;
 
 import java.util.List;
+import java.util.Map;
 
 public interface DAO {
 
@@ -46,5 +48,12 @@ public interface DAO {
 
     // CRUD ABSENCE
 
+    List<Map<String, Object>> getAllAbsences();
+
+    void addAbsence(String studentId, int courseId);
+
+    List<Map<String, Object>> getAbsencesByStudentId(String studentId);
+
+    void deleteAbsence(String studentId, int courseId);
 
 }

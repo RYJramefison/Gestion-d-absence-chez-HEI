@@ -9,22 +9,22 @@ CREATE TABLE student (
                          status VARCHAR(50)
 );
 
-INSERT INTO student (firstName, lastName, email, contact, universityYears, genre, status)
+INSERT INTO student (id,firstName, lastName, email, contact, universityYears, genre, status)
 VALUES ('STD23001', 'John', 'Doe', 'john.doe@example.com', '1234567890', 'L1', 'M', 'actif');
-INSERT INTO student (firstName, lastName, email, contact, universityYears, genre, status)
+INSERT INTO student (id,firstName, lastName, email, contact, universityYears, genre, status)
 VALUES ('STD23002', 'Jane', 'Smith', 'jane.smith@example.com', '0987654321', 'L1', 'F', 'inactif');
-INSERT INTO student (firstName, lastName, email, contact, universityYears, genre, status)
+INSERT INTO student (id,firstName, lastName, email, contact, universityYears, genre, status)
 VALUES ('STD22003', 'Alex', 'Johnson', 'alex.johnson@example.com', '1122334455', 'L1', 'M', 'actif');
-INSERT INTO student (firstName, lastName, email, contact, universityYears, genre, status)
+INSERT INTO student (id,firstName, lastName, email, contact, universityYears, genre, status)
 VALUES ('STD23004', 'Emily', 'Davis', 'emily.davis@example.com', '5566778899', 'L1', 'F', 'actif');
-INSERT INTO student (firstName, lastName, email, contact, universityYears, genre, status)
+INSERT INTO student (id,firstName, lastName, email, contact, universityYears, genre, status)
 VALUES ('STD22055', 'Michael', 'Brown', 'michael.brown@example.com', '6677889900', 'L2', 'M', 'actif');
 
 
 
 
 CREATE TABLE admin (
-                       id SERIAL PRIMARY KEY,
+                       id VARCHAR(15) PRIMARY KEY,
                        firstName VARCHAR(100),
                        lastName VARCHAR(100),
                        email VARCHAR(100),
@@ -32,16 +32,11 @@ CREATE TABLE admin (
 );
 
 
-INSERT INTO admin (firstName, lastName, email, contact)
-VALUES ('Alice', 'Williams', 'alice.williams@example.com', '1234567890');
-INSERT INTO admin (firstName, lastName, email, contact)
-VALUES ('Bob', 'Johnson', 'bob.johnson@example.com', '0987654321');
-INSERT INTO admin (firstName, lastName, email, contact)
-VALUES ('Catherine', 'Smith', 'catherine.smith@example.com', '1122334455');
-INSERT INTO admin (firstName, lastName, email, contact)
-VALUES ('David', 'Brown', 'david.brown@example.com', '5566778899');
-INSERT INTO admin (firstName, lastName, email, contact)
-VALUES ('Eva', 'Davis', 'eva.davis@example.com', '6677889900');
+INSERT INTO admin (id, firstName, lastName, email, contact)
+VALUES ('001', 'Alice', 'Williams', 'alice.williams@example.com', '1234567890');
+INSERT INTO admin (id, firstName, lastName, email, contact)
+VALUES ('002', 'Bob', 'Johnson', 'bob.johnson@example.com', '0987654321');
+
 
 
 CREATE TABLE course (
@@ -70,67 +65,39 @@ INSERT INTO course (name, startCourse, endCourse)
 VALUES
     ('Operating Systems', '2024-11-01 08:00:00', '2024-11-01 12:00:00');
 
-CREATE TABLE courseStudent (
-                               courseId INT REFERENCES course(id),
-                               studentId INT REFERENCES student(id),
-                               PRIMARY KEY (courseId, studentId)
-);
+
 
 
 CREATE TABLE absence (
-                         course_id INT NOT NULL,              -- Référence au cours
-                         student_id INT NOT NULL,             -- Référence à l'étudiant
-                         date_absence DATE NOT NULL,          -- Date de l'absence
-                         PRIMARY KEY (course_id, student_id, date_absence), -- Clé primaire composite
-                         FOREIGN KEY (course_id) REFERENCES course(id) ON DELETE CASCADE,
-                         FOREIGN KEY (student_id) REFERENCES student(id) ON DELETE CASCADE
+                         id SERIAL PRIMARY KEY,
+                         student_id VARCHAR(50) REFERENCES student(id),
+                         course_id INT REFERENCES course(id)
 );
 
 
 
--- Liaison entre le cours 'Introduction to Programming' et les étudiants avec id 1 et 2
-INSERT INTO courseStudent (courseId, studentId)
-VALUES (1, 1);
 
-INSERT INTO courseStudent (courseId, studentId)
-VALUES (1, 2);
+INSERT INTO absence (course_id, student_id)
+VALUES
+    (1, 'STD23001'), -- John Doe est absent
+    (1, 'STD23004'); -- Emily Davis est absente
 
--- Liaison entre le cours 'Database Systems' et les étudiants avec id 2 et 3
-INSERT INTO courseStudent (courseId, studentId)
-VALUES (2, 2);
-
-INSERT INTO courseStudent (courseId, studentId)
-VALUES (2, 3);
-
--- Liaison entre le cours 'Web Development' et les étudiants avec id 1, 3 et 4
-INSERT INTO courseStudent (courseId, studentId)
-VALUES (3, 1);
-
-INSERT INTO courseStudent (courseId, studentId)
-VALUES (3, 3);
-
-INSERT INTO courseStudent (courseId, studentId)
-VALUES (3, 4);
-
--- Liaison entre le cours 'Data Structures' et les étudiants avec id 2, 4 et 5
-INSERT INTO courseStudent (courseId, studentId)
-VALUES (4, 2);
-
-INSERT INTO courseStudent (courseId, studentId)
-VALUES (4, 4);
-
-INSERT INTO courseStudent (courseId, studentId)
-VALUES (4, 5);
-
--- Liaison entre le cours 'Operating Systems' et les étudiants avec id 1, 2 et 5
-INSERT INTO courseStudent (courseId, studentId)
-VALUES (5, 1);
-
-INSERT INTO courseStudent (courseId, studentId)
-VALUES (5, 2);
-
-INSERT INTO courseStudent (courseId, studentId)
-VALUES (5, 5);
+INSERT INTO absence (course_id, student_id)
+VALUES
+    (2, 'STD23002'), -- Jane Smith est absente
+    (2, 'STD22003'); -- Alex Johnson est absent
+INSERT INTO absence (course_id, student_id)
+VALUES
+    (4, 'STD23001'), -- John Doe est absent
+    (4, 'STD22003'); -- Alex Johnson est absent
+INSERT INTO absence (course_id, student_id)
+VALUES
+    (3, 'STD23004'), -- Emily Davis est absente
+    (3, 'STD22055'); -- Michael Brown est absent
+INSERT INTO absence (course_id, student_id)
+VALUES
+    (5, 'STD23002'), -- Jane Smith est absente
+    (5, 'STD22055'); -- Michael Brown est absent
 
 -- pagination
 
