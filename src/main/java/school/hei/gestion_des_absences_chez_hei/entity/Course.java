@@ -20,4 +20,6 @@ public class Course {
     private LocalDateTime starCourse;
 
     private LocalDateTime endCourse;
+
+    private List<Student> presenceSheet; // liste des etudiants absents
 }

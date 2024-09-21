@@ -9,7 +9,7 @@ import lombok.*;
 public class Admin extends Person{
 
 
-    public Admin(int id, String firstName, String lastName, String email, String contact) {
+    public Admin(String id, String firstName, String lastName, String email, String contact) {
         super(id, firstName, lastName, email, contact);
     }
 }

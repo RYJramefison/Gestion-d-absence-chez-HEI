@@ -1,24 +1,25 @@
 CREATE TABLE student (
-                         id SERIAL PRIMARY KEY,            -- Identifiant unique pour chaque étudiant
-                         firstName VARCHAR(100),           -- Prénom de l'étudiant
-                         lastName VARCHAR(100),            -- Nom de famille de l'étudiant
-                         email VARCHAR(100),               -- Email de l'étudiant
-                         contact VARCHAR(20),              -- Numéro de contact de l'étudiant
-                         reference VARCHAR(50),            -- Référence unique de l'étudiant
-                         universityYears VARCHAR(50),      -- Années universitaires de l'étudiant
-                         status VARCHAR(50)                -- Statut de l'étudiant (ex: actif, inactif)
+                         id VARCHAR(15) PRIMARY KEY,
+                         firstName VARCHAR(100),
+                         lastName VARCHAR(100),
+                         email VARCHAR(100),
+                         contact VARCHAR(20),
+                         universityYears VARCHAR(10) CHECK (universityYears IN ('L1', 'L2', 'L3', 'M1', 'M2')),
+                         genre CHAR(1) CHECK (genre IN ('M', 'F')),
+                         status VARCHAR(50)
 );
 
-INSERT INTO student (firstName, lastName, email, contact, reference, universityYears, status)
-VALUES ('John', 'Doe', 'john.doe@example.com', '1234567890', 'STD23001', '2020-2024', 'actif');
-INSERT INTO student (firstName, lastName, email, contact, reference, universityYears, status)
-VALUES ('Jane', 'Smith', 'jane.smith@example.com', '0987654321', 'STD23002', '2019-2023', 'inactif');
-INSERT INTO student (firstName, lastName, email, contact, reference, universityYears, status)
-VALUES ('Alex', 'Johnson', 'alex.johnson@example.com', '1122334455', 'STD23003', '2021-2025', 'actif');
-INSERT INTO student (firstName, lastName, email, contact, reference, universityYears, status)
-VALUES ('Emily', 'Davis', 'emily.davis@example.com', '5566778899', 'STD23004', '2022-2026', 'actif');
-INSERT INTO student (firstName, lastName, email, contact, reference, universityYears, status)
-VALUES ('Michael', 'Brown', 'michael.brown@example.com', '6677889900', 'STD23005', '2018-2022', 'actif');
+INSERT INTO student (firstName, lastName, email, contact, universityYears, genre, status)
+VALUES ('STD23001', 'John', 'Doe', 'john.doe@example.com', '1234567890', 'L1', 'M', 'actif');
+INSERT INTO student (firstName, lastName, email, contact, universityYears, genre, status)
+VALUES ('STD23002', 'Jane', 'Smith', 'jane.smith@example.com', '0987654321', 'L1', 'F', 'inactif');
+INSERT INTO student (firstName, lastName, email, contact, universityYears, genre, status)
+VALUES ('STD22003', 'Alex', 'Johnson', 'alex.johnson@example.com', '1122334455', 'L1', 'M', 'actif');
+INSERT INTO student (firstName, lastName, email, contact, universityYears, genre, status)
+VALUES ('STD23004', 'Emily', 'Davis', 'emily.davis@example.com', '5566778899', 'L1', 'F', 'actif');
+INSERT INTO student (firstName, lastName, email, contact, universityYears, genre, status)
+VALUES ('STD22055', 'Michael', 'Brown', 'michael.brown@example.com', '6677889900', 'L2', 'M', 'actif');
+
 
 
 
@@ -76,6 +77,14 @@ CREATE TABLE courseStudent (
 );
 
 
+CREATE TABLE absence (
+                         course_id INT NOT NULL,              -- Référence au cours
+                         student_id INT NOT NULL,             -- Référence à l'étudiant
+                         date_absence DATE NOT NULL,          -- Date de l'absence
+                         PRIMARY KEY (course_id, student_id, date_absence), -- Clé primaire composite
+                         FOREIGN KEY (course_id) REFERENCES course(id) ON DELETE CASCADE,
+                         FOREIGN KEY (student_id) REFERENCES student(id) ON DELETE CASCADE
+);
 
 
 

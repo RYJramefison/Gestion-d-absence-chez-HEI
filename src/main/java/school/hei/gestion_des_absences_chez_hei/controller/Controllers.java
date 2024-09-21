@@ -25,7 +25,7 @@ public class Controllers {
     }
 
     @GetMapping("/students/{id}")
-    public Student getStudentById(@PathVariable int id) {
+    public Student getStudentById(@PathVariable String id) {
         return services.getOneStudent(id);
     }
 
@@ -36,13 +36,13 @@ public class Controllers {
     }
 
     @DeleteMapping("/deleteStudent/{id}")
-    public ResponseEntity<Void> deleteStudent(@PathVariable int id) {
+    public ResponseEntity<Void> deleteStudent(@PathVariable String id) {
         services.removeStudent(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @PutMapping("/updateStudent/{id}")
-    public ResponseEntity<Void> updateStudent(@PathVariable int id, @RequestBody Student student) {
+    public ResponseEntity<Void> updateStudent(@PathVariable String id, @RequestBody Student student) {
         services.updateStudent(id, student);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
@@ -50,11 +50,11 @@ public class Controllers {
     // CONTROLLER COURSE
 
     @GetMapping("/courses")
-    public List<Course> getALlCourse(){
+    public List<Course> getALlCourse() {
         return services.getAllCourse();
     }
 
-    @GetMapping("/course/{id}")
+    @GetMapping("/courses/{id}")
     public Course getCourseById(@PathVariable int id) {
         return services.getOneCourse(id);
     }
@@ -85,7 +85,7 @@ public class Controllers {
     }
 
     @GetMapping("/admins/{id}")
-    public Admin getAdminById(@PathVariable int id) {
+    public Admin getAdminById(@PathVariable String id) {
         return services.getOneAdmin(id);
     }
 
@@ -95,14 +95,14 @@ public class Controllers {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @DeleteMapping("/deleteCourse/{id}")
-    public ResponseEntity<Void> deleteAdmin(@PathVariable int id) {
+    @DeleteMapping("/deleteAdmin/{id}")
+    public ResponseEntity<Void> deleteAdmin(@PathVariable String id) {
         services.removeAdmin(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @PutMapping("/updateCourse/{id}")
-    public ResponseEntity<Void> updateAdmin(@PathVariable int id, @RequestBody Admin admin) {
+    @PutMapping("/updateAdmin/{id}")
+    public ResponseEntity<Void> updateAdmin(@PathVariable String id, @RequestBody Admin admin) {
         services.updateAdmin(id, admin);
         return ResponseEntity.status(HttpStatus.OK).build();
     }

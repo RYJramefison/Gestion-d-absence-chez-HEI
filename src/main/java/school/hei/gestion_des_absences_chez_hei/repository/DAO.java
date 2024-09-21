@@ -12,13 +12,13 @@ public interface DAO {
 
     List<Student> getAllStudent();
 
-    Student getOneStudent(int id);
+    Student getOneStudent(String id);
 
     void saveStudent(Student student);
 
-    void updateStudent(int id, Student student);
+    void updateStudent(String id, Student student);
 
-    void deleteStudent(int id);
+    void deleteStudent(String id);
 
     // CRUD COURSE
 
@@ -36,13 +36,13 @@ public interface DAO {
 
     List<Admin> getAllAdmin();
 
-    Admin getOneAdmin(int id);
+    Admin getOneAdmin(String id);
 
     void saveAdmin(Admin admin);
 
-    void updateAdmin(int id, Admin admin);
+    void updateAdmin(String id, Admin admin);
 
-    void deleteAdmin(int id);
+    void deleteAdmin(String id);
 
     // CRUD ABSENCE
 

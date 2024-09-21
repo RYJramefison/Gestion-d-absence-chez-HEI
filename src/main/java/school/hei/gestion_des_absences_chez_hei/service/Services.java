@@ -31,15 +31,15 @@ public class Services {
         DAO.saveStudent(student);
     }
 
-    public void removeStudent(int id){
+    public void removeStudent(String id){
         DAO.deleteStudent(id);
     }
 
-    public void updateStudent(int id, Student toUpdate){
+    public void updateStudent(String id, Student toUpdate){
         DAO.updateStudent(id, toUpdate);
     }
 
-    public Student getOneStudent(int id){
+    public Student getOneStudent(String id){
         return DAO.getOneStudent(id);
     }
 
@@ -75,15 +75,15 @@ public class Services {
         DAO.saveAdmin(admin);
     }
 
-    public void removeAdmin(int id){
+    public void removeAdmin(String id){
         DAO.deleteAdmin(id);
     }
 
-    public void updateAdmin(int id, Admin toUpdate){
+    public void updateAdmin(String id, Admin toUpdate){
         DAO.updateAdmin(id, toUpdate);
     }
 
-    public Admin getOneAdmin(int id){
+    public Admin getOneAdmin(String id){
         return DAO.getOneAdmin(id);
     }
 }

@@ -9,18 +9,15 @@ import lombok.ToString;
 @Setter
 @ToString
 
-public class Student extends Person{
-    private String reference;
-
+public class Student extends Person {
     private UniversityYears universityYears;
 
     private Genre genre;
 
     private String status;
 
-    public Student(int id, String firstName, String lastName, String email, String contact, String reference, UniversityYears universityYears, Genre genre, String status) {
+    public Student(String id, String firstName, String lastName, String email, String contact, UniversityYears universityYears, Genre genre, String status) {
         super(id, firstName, lastName, email, contact);
-        this.reference = reference;
         this.universityYears = universityYears;
         this.genre = genre;
         this.status = status;
