@@ -1,9 +1,7 @@
 package school.hei.gestion_des_absences_chez_hei.repository;
 
 import org.springframework.stereotype.Repository;
-import school.hei.gestion_des_absences_chez_hei.entity.Admin;
-import school.hei.gestion_des_absences_chez_hei.entity.Course;
-import school.hei.gestion_des_absences_chez_hei.entity.Student;
+import school.hei.gestion_des_absences_chez_hei.entity.*;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -34,7 +32,8 @@ public class ImplementDAO implements DAO {
                         res.getString("email"),
                         res.getString("contact"),
                         res.getString("reference"),
-                        res.getString("universityYears"),
+                        UniversityYears.valueOf(res.getString("universityYears")),
+                        Genre.valueOf(res.getString("genre")),
                         res.getString("status")
                 );
                 students.add(student);
@@ -65,7 +64,8 @@ public class ImplementDAO implements DAO {
                         res.getString("email"),
                         res.getString("contact"),
                         res.getString("reference"),
-                        res.getString("universityYears"),
+                        UniversityYears.valueOf(res.getString("universityYears")),
+                        Genre.valueOf(res.getString("genre")),
                         res.getString("status")
                 );
             }
@@ -79,7 +79,7 @@ public class ImplementDAO implements DAO {
 
     @Override
     public void saveStudent(Student student) {
-        String sql = "INSERT INTO student (firstName, lastName, email, contact, reference, universityYears, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO student (firstName, lastName, email, contact, reference, universityYears, genre, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = this.connection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -89,8 +89,9 @@ public class ImplementDAO implements DAO {
             ps.setString(3, student.getEmail());
             ps.setString(4, student.getContact());
             ps.setString(5, student.getReference());
-            ps.setString(6, student.getUniversityYears());
-            ps.setString(7, student.getStatus());
+            ps.setString(6, student.getUniversityYears().name());
+            ps.setString(7, student.getGenre().name());
+            ps.setString(8, student.getStatus());
 
             ps.executeUpdate();
 
@@ -101,7 +102,7 @@ public class ImplementDAO implements DAO {
 
     @Override
     public void updateStudent(int id, Student student) {
-        String sql = "UPDATE student SET firstName=?, lastName=?, email=?, contact=?, reference=?, universityYears=?, status=? WHERE id=?";
+        String sql = "UPDATE student SET firstName=?, lastName=?, email=?, contact=?, reference=?, universityYears=?, genre=?, status=? WHERE id=?";
 
         try (Connection conn = this.connection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -111,9 +112,10 @@ public class ImplementDAO implements DAO {
             ps.setString(3, student.getEmail());
             ps.setString(4, student.getContact());
             ps.setString(5, student.getReference());
-            ps.setString(6, student.getUniversityYears());
-            ps.setString(7, student.getStatus());
-            ps.setInt(8, id);
+            ps.setString(6, student.getUniversityYears().name());
+            ps.setString(7, student.getGenre().name());
+            ps.setString(8, student.getStatus());
+            ps.setInt(9, id);
 
             ps.executeUpdate();
 
@@ -131,16 +133,13 @@ public class ImplementDAO implements DAO {
 
             ps.setInt(1, id);
 
-            int affectedRows = ps.executeUpdate();
-
-            if (affectedRows == 0) {
-                throw new SQLException("Échec de la suppression de l'étudiant, aucune ligne affectée.");
-            }
+            ps.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 
 
 

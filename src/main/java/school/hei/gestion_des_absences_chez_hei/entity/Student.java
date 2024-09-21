@@ -12,14 +12,17 @@ import lombok.ToString;
 public class Student extends Person{
     private String reference;
 
-    private String universityYears;
+    private UniversityYears universityYears;
+
+    private Genre genre;
 
     private String status;
 
-    public Student(int id, String firstName, String lastName, String email, String contact, String reference, String universityYears, String status) {
+    public Student(int id, String firstName, String lastName, String email, String contact, String reference, UniversityYears universityYears, Genre genre, String status) {
         super(id, firstName, lastName, email, contact);
         this.reference = reference;
         this.universityYears = universityYears;
+        this.genre = genre;
         this.status = status;
     }
 }
