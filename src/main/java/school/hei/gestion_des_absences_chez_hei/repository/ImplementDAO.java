@@ -404,9 +404,7 @@ public class ImplementDAO implements DAO {
     @Override
     public List<Map<String, Object>> getAllAbsences() {
         List<Map<String, Object>> absences = new ArrayList<>();
-        String sql = "SELECT a.student_id, c.name AS course_name, c.startCourse, c.endCourse " +
-                "FROM absence a " +
-                "JOIN course c ON a.course_id = c.id";
+        String sql = "SELECT a.student_id, c.name AS course_name, c.startCourse, c.endCourse FROM absence a JOIN course c ON a.course_id = c.id";
 
         try (Statement stm = this.connection.getConnection().createStatement();
              ResultSet res = stm.executeQuery(sql)) {

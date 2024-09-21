@@ -90,22 +90,18 @@ public class Services {
 
     // SERVICE ABSENCE
 
-    // Récupérer toutes les absences
     public List<Map<String, Object>> getAllAbsences() {
         return DAO.getAllAbsences();
     }
 
-    // Ajouter une absence
     public void addAbsence(String studentId, int courseId) {
         DAO.addAbsence(studentId, courseId);
     }
 
-    // Récupérer les absences d'un étudiant spécifique
     public List<Map<String, Object>> getAbsencesByStudentId(String studentId) {
         return DAO.getAbsencesByStudentId(studentId);
     }
 
-    // Supprimer une absence pour un étudiant spécifique et un cours donné
     public void deleteAbsence(String studentId, int courseId) {
         DAO.deleteAbsence(studentId, courseId);
     }

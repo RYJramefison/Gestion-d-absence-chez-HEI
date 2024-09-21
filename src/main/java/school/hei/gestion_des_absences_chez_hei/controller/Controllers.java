@@ -111,23 +111,23 @@ public class Controllers {
 
     // ABSENCE
 
-    @GetMapping("/")
+    @GetMapping("/absents")
     public List<Map<String, Object>> getAllAbsences() {
         return services.getAllAbsences();
     }
 
-    @GetMapping("/student/{studentId}")
+    @GetMapping("/absents/{studentId}")
     public List<Map<String, Object>> getAbsencesByStudentId(@PathVariable String studentId) {
         return services.getAbsencesByStudentId(studentId);
     }
 
-    @PostMapping("/add")
+    @PostMapping("/addAbsent")
     public ResponseEntity<Void> createAbsence(@RequestBody Absence absenceRequest) {
         services.addAbsence(absenceRequest.getStudent_id(), absenceRequest.getCourse_id());
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/deleteAbsent")
     public ResponseEntity<Void> deleteAbsence(@RequestParam String studentId, @RequestParam int courseId) {
         services.deleteAbsence(studentId, courseId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
