@@ -98,6 +98,12 @@ public class Controllers {
         return services.getAllAdmin();
     }
 
+    @GetMapping("/admins/search")
+    public List<Admin> getAllAdmins(@RequestParam @MatrixVariable int page,@RequestParam  @MatrixVariable int size) {
+        int offset = page * size;
+        return services.getAllAdmin(size, offset);
+    }
+
     @GetMapping("/admins/{id}")
     public Admin getAdminById(@PathVariable String id) {
         return services.getOneAdmin(id);

@@ -82,6 +82,10 @@ public class Services {
         return DAO.getAllAdmin();
     }
 
+    public List<Admin> getAllAdmin(int limit, int offset) {
+        return DAO.getAllAdmin(limit, offset);
+    }
+
     public void addAdmin(Admin admin){
         DAO.saveAdmin(admin);
     }

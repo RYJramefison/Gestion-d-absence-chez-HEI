@@ -369,6 +369,35 @@ public class ImplementDAO implements DAO {
     }
 
     @Override
+    public List<Admin> getAllAdmin(int limit, int offset) {
+        List<Admin> admins = new ArrayList<>();
+        String sql = "SELECT * FROM admin LIMIT ? OFFSET ?";
+
+        try (PreparedStatement stm = this.connection.getConnection().prepareStatement(sql)) {
+            stm.setInt(1, limit);  // Limite du nombre d'administrateurs à récupérer
+            stm.setInt(2, offset); // Définir l'offset pour la pagination
+
+            try (ResultSet res = stm.executeQuery()) {
+                while (res.next()) {
+                    Admin admin = new Admin(
+                            res.getString("id"),
+                            res.getString("firstName"),
+                            res.getString("lastName"),
+                            res.getString("email"),
+                            res.getString("contact")
+                    );
+                    admins.add(admin);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return admins;
+    }
+
+
+    @Override
     public Admin getOneAdmin(String id) {
         Admin admin = null;
         String sql = "SELECT * FROM admin WHERE id = ?";

@@ -39,6 +39,8 @@ public interface DAO {
 
     List<Admin> getAllAdmin();
 
+    List<Admin> getAllAdmin(int limit, int offset);
+
     Admin getOneAdmin(String id);
 
     void saveAdmin(Admin admin);
