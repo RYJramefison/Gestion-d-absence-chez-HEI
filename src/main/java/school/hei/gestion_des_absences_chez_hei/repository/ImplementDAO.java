@@ -75,7 +75,6 @@ public class ImplementDAO implements DAO {
         return students;
     }
 
-
     @Override
     public Student getOneStudent(String id) {
         Student student = null;
@@ -396,7 +395,6 @@ public class ImplementDAO implements DAO {
         return admins;
     }
 
-
     @Override
     public Admin getOneAdmin(String id) {
         Admin admin = null;
@@ -537,7 +535,6 @@ public class ImplementDAO implements DAO {
         return absences;
     }
 
-
     @Override
     public void addAbsence(String studentId, int courseId) {
         String sql = "INSERT INTO absence (studentId, courseId, isJustify) VALUES (?, ?, false)";
@@ -600,7 +597,6 @@ public class ImplementDAO implements DAO {
             e.printStackTrace();
         }
     }
-
 
     @Override
     public void deleteAbsence(String studentId, int courseId) {
@@ -685,8 +681,6 @@ public class ImplementDAO implements DAO {
         return justifications;
     }
 
-
-
     @Override
     public Map<String, Object> getJustification(String studentId, int courseId) {
         Map<String, Object> justification = null;
@@ -723,7 +717,6 @@ public class ImplementDAO implements DAO {
         return justification;
     }
 
-
     @Override
     public void saveJustification(Justification justification) {
         String sql = "INSERT INTO justification (studentId, courseId, type, description, date) VALUES (?, ?, ?, ?, ?)";
@@ -743,7 +736,6 @@ public class ImplementDAO implements DAO {
             e.printStackTrace();
         }
     }
-
 
     @Override
     public void updateJustification(String studentId, int courseId, Justification justification) {
@@ -765,7 +757,6 @@ public class ImplementDAO implements DAO {
         }
     }
 
-
     @Override
     public void deleteJustification(String studentId, int courseId) {
         String sql = "DELETE FROM justification WHERE studentId = ? AND courseId = ?";
@@ -784,5 +775,147 @@ public class ImplementDAO implements DAO {
     }
 
 
+
+    @Override
+    public List<Map<String, Object>> getAllCORs() {
+        List<Map<String, Object>> cors = new ArrayList<>();
+        String sql = "SELECT c.id AS corId, c.etat, c.date, s.id AS studentId, s.firstName, s.lastName " +
+                "FROM cor c " +
+                "JOIN student s ON c.studentID = s.id";
+
+        try (Statement stm = this.connection.getConnection().createStatement();
+             ResultSet res = stm.executeQuery(sql)) {
+
+            while (res.next()) {
+                Map<String, Object> cor = new LinkedHashMap<>();
+                cor.put("corId", res.getInt("corId"));
+                cor.put("etat", res.getString("etat"));
+                cor.put("date", res.getTimestamp("date").toLocalDateTime());
+                cor.put("studentId", res.getString("studentId"));
+                cor.put("studentFirstName", res.getString("firstName"));
+                cor.put("studentLastName", res.getString("lastName"));
+                cors.add(cor);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return cors;
+    }
+
+    @Override
+    public List<Map<String, Object>> getAllCORs(int limit, int offset) {
+        List<Map<String, Object>> cors = new ArrayList<>();
+        String sql = "SELECT c.id AS corId, c.etat, c.date, s.id AS studentId, s.firstName, s.lastName " +
+                "FROM cor c " +
+                "JOIN student s ON c.studentID = s.id " +
+                "LIMIT ? OFFSET ?";
+
+        try (PreparedStatement stm = this.connection.getConnection().prepareStatement(sql)) {
+            stm.setInt(1, limit);
+            stm.setInt(2, offset);
+
+            try (ResultSet res = stm.executeQuery()) {
+                while (res.next()) {
+                    Map<String, Object> cor = new LinkedHashMap<>();
+                    cor.put("corId", res.getInt("corId"));
+                    cor.put("etat", res.getString("etat"));
+                    cor.put("date", res.getTimestamp("date").toLocalDateTime());
+                    cor.put("studentId", res.getString("studentId"));
+                    cor.put("studentFirstName", res.getString("firstName"));
+                    cor.put("studentLastName", res.getString("lastName"));
+                    cors.add(cor);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return cors;
+    }
+
+    @Override
+    public Map<String, Object> getCOR(String studentId, int corId) {
+        Map<String, Object> cor = null;
+        String sql = "SELECT c.id AS corId, c.etat, c.date, s.id AS studentId, s.firstName, s.lastName " +
+                "FROM cor c " +
+                "JOIN student s ON c.studentID = s.id " +
+                "WHERE c.studentID = ? AND c.id = ?";
+
+        try (PreparedStatement ps = this.connection.getConnection().prepareStatement(sql)) {
+            ps.setString(1, studentId);
+            ps.setInt(2, corId);
+
+            try (ResultSet res = ps.executeQuery()) {
+                if (res.next()) {
+                    cor = new LinkedHashMap<>();
+                    cor.put("corId", res.getInt("corId"));
+                    cor.put("etat", res.getString("etat"));
+                    cor.put("date", res.getTimestamp("date").toLocalDateTime());
+                    cor.put("studentId", res.getString("studentId"));
+                    cor.put("studentFirstName", res.getString("firstName"));
+                    cor.put("studentLastName", res.getString("lastName"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return cor;
+    }
+
+    @Override
+    public void saveCOR(COR cor) {
+        String sql = "INSERT INTO cor (etat, date, studentID) VALUES (?, ?, ?)";
+
+        try (Connection conn = this.connection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, cor.getEtat());
+            ps.setTimestamp(2, Timestamp.valueOf(cor.getDate()));
+            ps.setString(3, cor.getStudentID());
+
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void updateCOR(String studentId, int corId, COR cor) {
+        String sql = "UPDATE cor SET etat = ?, date = ? WHERE studentID = ? AND id = ?";
+
+        try (Connection conn = this.connection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, cor.getEtat());
+            ps.setTimestamp(2, Timestamp.valueOf(cor.getDate()));
+            ps.setString(3, studentId);
+            ps.setInt(4, corId);
+
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void deleteCOR(String studentId, int corId) {
+        String sql = "DELETE FROM cor WHERE studentID = ? AND id = ?";
+
+        try (Connection conn = this.connection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, studentId);
+            ps.setInt(2, corId);
+
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

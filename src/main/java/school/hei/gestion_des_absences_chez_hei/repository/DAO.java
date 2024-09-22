@@ -51,6 +51,7 @@ public interface DAO {
 
     // CRUD ABSENCE
 
+
     List<Map<String, Object>> getAllAbsences();
 
     List<Map<String, Object>> getAllAbsences(int limit, int offset);
@@ -65,6 +66,7 @@ public interface DAO {
 
     // CRUD JUSTIFICATION
 
+
      List<Map<String, Object>> getAllJustifications();
 
     List<Map<String, Object>> getAllJustifications(int limit, int offset);
@@ -77,4 +79,17 @@ public interface DAO {
 
     void deleteJustification(String studentId, int courseId);
 
+    // CRUD COR
+
+    List<Map<String, Object>> getAllCORs();
+
+    List<Map<String, Object>> getAllCORs(int limit, int offset);
+
+    Map<String, Object> getCOR(String studentId, int corId);
+
+    void saveCOR(COR cor);
+
+    void updateCOR(String studentId, int corId, COR cor);
+
+    void deleteCOR(String studentId, int corId);
 }
