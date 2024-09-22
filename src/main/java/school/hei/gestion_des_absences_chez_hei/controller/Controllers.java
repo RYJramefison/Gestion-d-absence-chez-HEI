@@ -16,6 +16,7 @@ import java.util.Map;
 public class Controllers {
     private Services services;
 
+
     // CONTROLLER STUDENT
 
     @GetMapping("/students")
@@ -45,6 +46,7 @@ public class Controllers {
         services.updateStudent(id, student);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
 
     // CONTROLLER COURSE
 
@@ -76,6 +78,7 @@ public class Controllers {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+
     // CONTROLLER ADMIN
 
     @GetMapping("/admins")
@@ -106,6 +109,7 @@ public class Controllers {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+
     // CONTROLLER ABSENCE
 
     @GetMapping("/absents")
@@ -135,6 +139,7 @@ public class Controllers {
         services.deleteAbsence(studentId, courseId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
 
     // CONTROLLER JUSTIFICATION
 
