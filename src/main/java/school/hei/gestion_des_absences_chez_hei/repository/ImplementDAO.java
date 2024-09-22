@@ -283,9 +283,6 @@ public class ImplementDAO implements DAO {
     }
 
 
-
-
-
     // CRUD ADMIN
 
     @Override
@@ -403,15 +400,15 @@ public class ImplementDAO implements DAO {
     @Override
     public List<Map<String, Object>> getAllAbsences() {
         List<Map<String, Object>> absences = new ArrayList<>();
-        String sql = "SELECT a.student_id, c.name AS course_name, c.startCourse, c.endCourse FROM absence a JOIN course c ON a.course_id = c.id";
+        String sql = "SELECT a.studentId, c.name AS course_name, c.startCourse, c.endCourse, a.isJusify FROM absence a JOIN course c ON a.courseId = c.id";
 
         try (Statement stm = this.connection.getConnection().createStatement();
              ResultSet res = stm.executeQuery(sql)) {
 
             while (res.next()) {
                 Map<String, Object> absence = new HashMap<>();
-                absence.put("student_id", res.getString("student_id"));
-                absence.put("course_name", res.getString("course_name"));
+                absence.put("student_id", res.getString("studentId"));
+                absence.put("course_name", res.getString("courseName"));
                 absence.put("startCourse", res.getTimestamp("startCourse").toLocalDateTime());
                 absence.put("endCourse", res.getTimestamp("endCourse").toLocalDateTime());
                 absences.add(absence);
@@ -426,7 +423,7 @@ public class ImplementDAO implements DAO {
 
     @Override
     public void addAbsence(String studentId, int courseId) {
-        String sql = "INSERT INTO absence (student_id, course_id) VALUES (?, ?)";
+        String sql = "INSERT INTO absence (studentId, courseId) VALUES (?, ?)";
 
         try (Connection conn = this.connection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -443,9 +440,9 @@ public class ImplementDAO implements DAO {
     @Override
     public List<Map<String, Object>> getAbsencesByStudentId(String studentId) {
         List<Map<String, Object>> absences = new ArrayList<>();
-        String sql = "SELECT a.student_id, c.name AS course_name, c.startCourse, c.endCourse " +
+        String sql = "SELECT a.studentId, c.name AS course_name, c.startCourse, c.endCourse " +
                 "FROM absence a " +
-                "JOIN course c ON a.course_id = c.id WHERE a.student_id = ?";
+                "JOIN course c ON a.courseId = c.id WHERE a.studentId = ?";
 
         try (Connection conn = this.connection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -455,8 +452,8 @@ public class ImplementDAO implements DAO {
 
             while (res.next()) {
                 Map<String, Object> absence = new HashMap<>();
-                absence.put("student_id", res.getString("student_id"));
-                absence.put("course_name", res.getString("course_name"));
+                absence.put("studentId", res.getString("studentId"));
+                absence.put("courseName", res.getString("courseName"));
                 absence.put("startCourse", res.getTimestamp("startCourse").toLocalDateTime());
                 absence.put("endCourse", res.getTimestamp("endCourse").toLocalDateTime());
                 absences.add(absence);
@@ -471,13 +468,142 @@ public class ImplementDAO implements DAO {
 
     @Override
     public void deleteAbsence(String studentId, int courseId) {
-        String sql = "DELETE FROM absence WHERE student_id = ? AND course_id = ?";
+        String sql = "DELETE FROM absence WHERE studentId = ? AND courseId = ?";
 
         try (Connection conn = this.connection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, studentId);
             ps.setInt(2, courseId);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // CRUD JUSTIFICATION
+
+    @Override
+    public List<Map<String, Object>> getAllJustifications() {
+        List<Map<String, Object>> justifications = new ArrayList<>();
+        String sql = "SELECT j.studentId, s.firstName AS studentFirstName, s.lastName AS studentLastName, " +
+                "c.name AS courseName, j.type, j.description, j.date " +
+                "FROM justification j " +
+                "JOIN student s ON j.studentId = s.id " +
+                "JOIN course c ON j.courseId = c.id";
+
+        try (Statement stm = this.connection.getConnection().createStatement();
+             ResultSet res = stm.executeQuery(sql)) {
+
+            while (res.next()) {
+                Map<String, Object> justification = new HashMap<>();
+                justification.put("studentId", res.getString("studentId"));
+                justification.put("studentFirstName", res.getString("studentFirstName"));
+                justification.put("studentLastName", res.getString("studentLastName"));
+                justification.put("courseName", res.getString("courseName"));
+                justification.put("type", res.getString("type"));
+                justification.put("description", res.getString("description"));
+                justification.put("date", res.getDate("date").toLocalDate());
+                justifications.add(justification);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return justifications;
+    }
+
+
+    @Override
+    public Map<String, Object> getJustification(String studentId, int courseId) {
+        Map<String, Object> justification = null;
+        String sql = "SELECT j.studentId, s.firstName AS studentFirstName, s.lastName AS studentLastName, " +
+                "c.name AS courseName, j.type, j.description, j.date " +
+                "FROM justification j " +
+                "JOIN student s ON j.studentId = s.id " +
+                "JOIN course c ON j.courseId = c.id " +
+                "WHERE j.studentId = ? AND j.courseId = ?";
+
+        try (Connection conn = this.connection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, studentId);
+            ps.setInt(2, courseId);
+
+            ResultSet res = ps.executeQuery();
+
+            if (res.next()) {
+                justification = new HashMap<>();
+                justification.put("studentId", res.getString("studentId"));
+                justification.put("studentFirstName", res.getString("studentFirstName"));
+                justification.put("studentLastName", res.getString("studentLastName"));
+                justification.put("courseName", res.getString("courseName"));
+                justification.put("type", res.getString("type"));
+                justification.put("description", res.getString("description"));
+                justification.put("date", res.getDate("date").toLocalDate());
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return justification;
+    }
+
+
+    @Override
+    public void saveJustification(Justification justification) {
+        String sql = "INSERT INTO justification (studentId, courseId, type, description, date) VALUES (?, ?, ?, ?, ?)";
+
+        try (Connection conn = this.connection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, justification.getStudentId());
+            ps.setInt(2, justification.getCourseId());
+            ps.setString(3, justification.getType());
+            ps.setString(4, justification.getDescription());
+            ps.setDate(5, java.sql.Date.valueOf(justification.getDate()));
+
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public void updateJustification(String studentId, int courseId, Justification justification) {
+        String sql = "UPDATE justification SET type=?, description=?, date=? WHERE studentId=? AND courseId=?";
+
+        try (Connection conn = this.connection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, justification.getType());
+            ps.setString(2, justification.getDescription());
+            ps.setDate(3, java.sql.Date.valueOf(justification.getDate()));
+            ps.setString(4, studentId);
+            ps.setInt(5, courseId);
+
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public void deleteJustification(String studentId, int courseId) {
+        String sql = "DELETE FROM justification WHERE studentId = ? AND courseId = ?";
+
+        try (Connection conn = this.connection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, studentId);
+            ps.setInt(2, courseId);
+
             ps.executeUpdate();
 
         } catch (SQLException e) {

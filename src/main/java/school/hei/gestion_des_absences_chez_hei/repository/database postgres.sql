@@ -70,34 +70,59 @@ VALUES
 
 CREATE TABLE absence (
                          id SERIAL PRIMARY KEY,
-                         student_id VARCHAR(50) REFERENCES student(id),
-                         course_id INT REFERENCES course(id)
+                         studentId VARCHAR(50) REFERENCES student(id),
+                         courseId INT REFERENCES course(id),
+                         isJustify BOOLEAN
 );
 
 
 
 
-INSERT INTO absence (course_id, student_id)
+-- John Doe est absent au cours 1 (non justifié) et Emily Davis (justifiée)
+INSERT INTO absence (courseId, studentId, isJustify)
 VALUES
-    (1, 'STD23001'), -- John Doe est absent
-    (1, 'STD23004'); -- Emily Davis est absente
+    (1, 'STD23001', FALSE), -- John Doe est absent, absence non justifiée
+    (1, 'STD23004', TRUE);  -- Emily Davis est absente, absence justifiée
 
-INSERT INTO absence (course_id, student_id)
+-- Jane Smith est absente au cours 2 (justifiée) et Alex Johnson (non justifié)
+INSERT INTO absence (courseId, studentId, isJustify)
 VALUES
-    (2, 'STD23002'), -- Jane Smith est absente
-    (2, 'STD22003'); -- Alex Johnson est absent
-INSERT INTO absence (course_id, student_id)
+    (2, 'STD23002', TRUE),  -- Jane Smith est absente, absence justifiée
+    (2, 'STD22003', FALSE); -- Alex Johnson est absent, absence non justifiée
+
+-- John Doe est absent au cours 4 (non justifié) et Alex Johnson (justifiée)
+INSERT INTO absence (courseId, studentId, isJustify)
 VALUES
-    (4, 'STD23001'), -- John Doe est absent
-    (4, 'STD22003'); -- Alex Johnson est absent
-INSERT INTO absence (course_id, student_id)
+    (4, 'STD23001', FALSE), -- John Doe est absent, absence non justifiée
+    (4, 'STD22003', TRUE);  -- Alex Johnson est absent, absence justifiée
+
+-- Emily Davis est absente au cours 3 (non justifiée) et Michael Brown (justifiée)
+INSERT INTO absence (courseId, studentId, isJustify)
 VALUES
-    (3, 'STD23004'), -- Emily Davis est absente
-    (3, 'STD22055'); -- Michael Brown est absent
-INSERT INTO absence (course_id, student_id)
+    (3, 'STD23004', FALSE), -- Emily Davis est absente, absence non justifiée
+    (3, 'STD22055', TRUE);  -- Michael Brown est absent, absence justifiée
+
+-- Jane Smith est absente au cours 5 (justifiée) et Michael Brown (non justifiée)
+
+
+
+CREATE TABLE justification (
+                               studentId VARCHAR(255) NOT NULL,
+                               courseId INT NOT NULL,
+                               type VARCHAR(100) NOT NULL,
+                               description TEXT NOT NULL,
+                               date DATE NOT NULL,
+                               PRIMARY KEY (studentId, courseId)
+);
+
+INSERT INTO justification (studentId, courseId, type, description, date)
 VALUES
-    (5, 'STD23002'), -- Jane Smith est absente
-    (5, 'STD22055'); -- Michael Brown est absent
+    ('STD23001', 1, 'Medical', 'Absent due to illness', '2024-09-10'),
+    ('STD23002', 2, 'Family', 'Family emergency', '2024-09-12'),
+    ('STD23003', 3, 'Personal', 'Personal reasons', '2024-09-15'),
+    ('STD23004', 4, 'Medical', 'Medical appointment', '2024-09-18'),
+    ('STD23005', 5, 'Work', 'Work-related absence', '2024-09-20');
+
 
 -- pagination
 

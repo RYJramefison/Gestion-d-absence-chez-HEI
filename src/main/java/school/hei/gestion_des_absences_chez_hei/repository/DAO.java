@@ -1,9 +1,6 @@
 package school.hei.gestion_des_absences_chez_hei.repository;
 
-import school.hei.gestion_des_absences_chez_hei.entity.Absence;
-import school.hei.gestion_des_absences_chez_hei.entity.Admin;
-import school.hei.gestion_des_absences_chez_hei.entity.Course;
-import school.hei.gestion_des_absences_chez_hei.entity.Student;
+import school.hei.gestion_des_absences_chez_hei.entity.*;
 
 import java.util.List;
 import java.util.Map;
@@ -55,5 +52,17 @@ public interface DAO {
     List<Map<String, Object>> getAbsencesByStudentId(String studentId);
 
     void deleteAbsence(String studentId, int courseId);
+
+    // CRUD JUSTIFICATION
+
+     List<Map<String, Object>> getAllJustifications();
+
+     Map<String, Object> getJustification(String studentId, int courseId);
+
+    void saveJustification(Justification justification);
+
+    void updateJustification(String studentId, int courseId, Justification justification);
+
+    void deleteJustification(String studentId, int courseId);
 
 }

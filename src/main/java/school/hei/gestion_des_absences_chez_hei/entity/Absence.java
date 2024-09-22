@@ -11,7 +11,9 @@ import lombok.*;
 public class Absence {
     private int id;
 
-    private int course_id;
+    private int courseId;
 
-    private String student_id;
+    private String studentId;
+
+    private Boolean isJustify;
 }

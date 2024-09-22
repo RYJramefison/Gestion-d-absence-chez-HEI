@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import school.hei.gestion_des_absences_chez_hei.entity.Absence;
-import school.hei.gestion_des_absences_chez_hei.entity.Admin;
-import school.hei.gestion_des_absences_chez_hei.entity.Course;
-import school.hei.gestion_des_absences_chez_hei.entity.Student;
+import school.hei.gestion_des_absences_chez_hei.entity.*;
 import school.hei.gestion_des_absences_chez_hei.service.Services;
 
 import java.util.List;
@@ -123,7 +120,7 @@ public class Controllers {
 
     @PostMapping("/addAbsent")
     public ResponseEntity<Void> createAbsence(@RequestBody Absence absenceRequest) {
-        services.addAbsence(absenceRequest.getStudent_id(), absenceRequest.getCourse_id());
+        services.addAbsence(absenceRequest.getStudentId(), absenceRequest.getCourseId());
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
@@ -131,5 +128,31 @@ public class Controllers {
     public ResponseEntity<Void> deleteAbsence(@RequestParam String studentId, @RequestParam int courseId) {
         services.deleteAbsence(studentId, courseId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @GetMapping("/justifications")
+    public List<Map<String, Object>> getAllJustifications() {
+        return services.getAllJustifications();
+    }
+
+    @GetMapping("/justification/{studentId}/{courseId}")
+    public Map<String, Object> getJustification(@PathVariable String studentId, @PathVariable int courseId) {
+        return services.getJustification(studentId, courseId);
+    }
+
+    @PostMapping("/justification")
+    public void saveJustification(@RequestBody Justification justification) {
+        services.saveJustification(justification);
+    }
+
+    @PutMapping("/justification/{studentId}/{courseId}")
+    public void updateJustification(@PathVariable String studentId, @PathVariable int courseId,
+                                    @RequestBody Justification justification) {
+        services.updateJustification(studentId, courseId, justification);
+    }
+
+    @DeleteMapping("/justification/{studentId}/{courseId}")
+    public void deleteJustification(@PathVariable String studentId, @PathVariable int courseId) {
+        services.deleteJustification(studentId, courseId);
     }
 }

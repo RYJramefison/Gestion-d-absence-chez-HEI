@@ -7,7 +7,9 @@ import lombok.ToString;
 import org.springframework.stereotype.Service;
 import school.hei.gestion_des_absences_chez_hei.entity.Admin;
 import school.hei.gestion_des_absences_chez_hei.entity.Course;
+import school.hei.gestion_des_absences_chez_hei.entity.Justification;
 import school.hei.gestion_des_absences_chez_hei.entity.Student;
+import school.hei.gestion_des_absences_chez_hei.repository.DAO;
 import school.hei.gestion_des_absences_chez_hei.repository.ImplementDAO;
 
 import java.util.List;
@@ -105,5 +107,36 @@ public class Services {
     public void deleteAbsence(String studentId, int courseId) {
         DAO.deleteAbsence(studentId, courseId);
     }
+
+    // CRUD JUSTIFICATION
+
+    public List<Map<String, Object>> getAllJustifications() {
+        return DAO.getAllJustifications();
+    }
+
+    public Map<String, Object> getJustification(String studentId, int courseId) {
+        return DAO.getJustification(studentId,courseId);
+    }
+
+    public void saveJustification(Justification justification) {
+            DAO.saveJustification(justification);
+    }
+
+    public void updateJustification(String studentId, int courseId, Justification justification) {
+            DAO.updateJustification(studentId, courseId, justification);
+    }
+
+    public void deleteJustification(String studentId, int courseId) {
+        DAO.deleteJustification(studentId, courseId);
+    }
+
+//    private boolean validateJustification(Justification justification) {
+//        return justification != null &&
+//                justification.getStudentId() != null &&
+//                justification.getCourseId() > 0 &&
+//                justification.getType() != null &&
+//                justification.getDescription() != null &&
+//                justification.getDate() != null;
+//    }
 
 }
