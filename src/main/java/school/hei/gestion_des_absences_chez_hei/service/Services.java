@@ -56,6 +56,10 @@ public class Services {
         return DAO.getAllCourse();
     }
 
+    public List<Course> getAllCourse(int limit, int offset) {
+        return DAO.getAllCourse(limit, offset);
+    }
+
     public void addCourse(Course course){
         DAO.saveCourse(course);
     }

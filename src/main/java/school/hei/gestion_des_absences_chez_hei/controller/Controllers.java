@@ -24,7 +24,7 @@ public class Controllers {
         return services.getAllStudent();
     }
 
-    @GetMapping("/search")
+    @GetMapping("/students/search")
     public List<Student> getAllStudents(@RequestParam @MatrixVariable int page,@RequestParam  @MatrixVariable int size) {
         int offset = page * size;
         return services.getAllStudent(size, offset);
@@ -59,6 +59,12 @@ public class Controllers {
     @GetMapping("/courses")
     public List<Course> getALlCourse() {
         return services.getAllCourse();
+    }
+
+    @GetMapping("/courses/search")
+    public List<Course> getAllCourses(@RequestParam @MatrixVariable int page,@RequestParam  @MatrixVariable int size) {
+        int offset = page * size;
+        return services.getAllCourse(size, offset);
     }
 
     @GetMapping("/courses/{id}")

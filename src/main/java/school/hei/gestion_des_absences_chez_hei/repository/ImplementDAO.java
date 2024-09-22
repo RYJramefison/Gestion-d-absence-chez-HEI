@@ -233,6 +233,34 @@ public class ImplementDAO implements DAO {
     }
 
     @Override
+    public List<Course> getAllCourse(int limit, int offset) {
+        List<Course> courses = new ArrayList<>();
+        String sql = "SELECT * FROM course LIMIT ? OFFSET ?";
+
+        try (PreparedStatement stm = this.connection.getConnection().prepareStatement(sql)) {
+            stm.setInt(1, limit);  // Spécifier combien de résultats récupérer
+            stm.setInt(2, offset); // Spécifier l'offset pour la pagination
+
+            try (ResultSet res = stm.executeQuery()) {
+                while (res.next()) {
+                    Course course = new Course(
+                            res.getInt("id"),
+                            res.getString("name"),
+                            res.getTimestamp("startCourse").toLocalDateTime(),
+                            res.getTimestamp("endCourse").toLocalDateTime(),
+                            getPresenceSheet(res.getInt("id")) // Récupère la liste des étudiants absents
+                    );
+                    courses.add(course);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return courses;
+    }
+
+    @Override
     public Course getOneCourse(int id) {
         Course course = null;
         String sql = "SELECT * FROM course WHERE id = ?";

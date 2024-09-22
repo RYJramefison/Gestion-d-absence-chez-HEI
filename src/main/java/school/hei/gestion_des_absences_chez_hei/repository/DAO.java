@@ -25,6 +25,8 @@ public interface DAO {
 
     List<Course> getAllCourse();
 
+    List<Course> getAllCourse(int limit, int offset);
+
     Course getOneCourse(int id);
 
     void saveCourse(Course course);
