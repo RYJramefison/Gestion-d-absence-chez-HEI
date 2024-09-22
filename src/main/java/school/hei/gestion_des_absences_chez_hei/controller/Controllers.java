@@ -24,6 +24,12 @@ public class Controllers {
         return services.getAllStudent();
     }
 
+    @GetMapping("/search")
+    public List<Student> getAllStudents(@RequestParam @MatrixVariable int page,@RequestParam  @MatrixVariable int size) {
+        int offset = page * size;
+        return services.getAllStudent(size, offset);
+    }
+
     @GetMapping("/students/{id}")
     public Student getStudentById(@PathVariable String id) {
         return services.getOneStudent(id);

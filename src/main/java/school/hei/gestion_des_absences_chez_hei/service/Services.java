@@ -30,6 +30,10 @@ public class Services {
         return DAO.getAllStudent();
     }
 
+    public List<Student> getAllStudent(int limit, int offset) {
+        return DAO.getAllStudent(limit, offset);
+    }
+
     public void addStudent(Student student){
         DAO.saveStudent(student);
     }

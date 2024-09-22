@@ -45,6 +45,38 @@ public class ImplementDAO implements DAO {
     }
 
     @Override
+    public List<Student> getAllStudent(int limit, int offset) {
+        List<Student> students = new ArrayList<>();
+        String sql = "SELECT * FROM student LIMIT ? OFFSET ?";
+
+        try (PreparedStatement stm = this.connection.getConnection().prepareStatement(sql)) {
+            stm.setInt(1, limit);
+            stm.setInt(2, offset);
+
+            try (ResultSet res = stm.executeQuery()) {
+                while (res.next()) {
+                    Student student = new Student(
+                            res.getString("id"),
+                            res.getString("firstName"),
+                            res.getString("lastName"),
+                            res.getString("email"),
+                            res.getString("contact"),
+                            UniversityYears.valueOf(res.getString("universityYears")),
+                            Genre.valueOf(res.getString("genre")),
+                            res.getString("status")
+                    );
+                    students.add(student);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return students;
+    }
+
+
+    @Override
     public Student getOneStudent(String id) {
         Student student = null;
         String sql = "SELECT * FROM student WHERE id = ?";

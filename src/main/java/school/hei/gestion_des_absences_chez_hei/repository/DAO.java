@@ -11,6 +11,8 @@ public interface DAO {
 
     List<Student> getAllStudent();
 
+    List<Student> getAllStudent(int limit, int offset);
+
     Student getOneStudent(String id);
 
     void saveStudent(Student student);
