@@ -102,8 +102,14 @@ public class Services {
         return DAO.getOneAdmin(id);
     }
 
+    // SERVICE ABSENCE
+
     public List<Map<String, Object>> getAllAbsences() {
         return DAO.getAllAbsences();
+    }
+
+    public List<Map<String, Object>> getAllAbsences(int limit, int offset) {
+        return DAO.getAllAbsences(limit, offset);
     }
 
     public void addAbsence(String studentId, int courseId) {

@@ -53,6 +53,8 @@ public interface DAO {
 
     List<Map<String, Object>> getAllAbsences();
 
+    List<Map<String, Object>> getAllAbsences(int limit, int offset);
+
     void addAbsence(String studentId, int courseId);
 
     List<Map<String, Object>> getAbsencesByStudentId(String studentId);

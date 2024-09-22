@@ -135,6 +135,12 @@ public class Controllers {
         return services.getAllAbsences();
     }
 
+    @GetMapping("/absences")
+    public List<Map<String, Object>> getAllAbsences(@RequestParam @MatrixVariable int page,@RequestParam  @MatrixVariable int size) {
+        int offset = page * size;
+        return services.getAllAbsences(size, offset);
+    }
+
     @GetMapping("/absents/{id}")
     public List<Map<String, Object>> getAbsencesByStudentId(@PathVariable String id) {
         return services.getAbsencesByStudentId(id);

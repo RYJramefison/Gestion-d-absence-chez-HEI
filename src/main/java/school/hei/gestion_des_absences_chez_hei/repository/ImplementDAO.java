@@ -510,6 +510,35 @@ public class ImplementDAO implements DAO {
     }
 
     @Override
+    public List<Map<String, Object>> getAllAbsences(int limit, int offset) {
+        List<Map<String, Object>> absences = new ArrayList<>();
+        String sql = "SELECT a.studentId, c.name AS courseName, c.startCourse, c.endCourse, a.isJustify " +
+                "FROM absence a JOIN course c ON a.courseId = c.id LIMIT ? OFFSET ?";
+
+        try (PreparedStatement stm = this.connection.getConnection().prepareStatement(sql)) {
+            stm.setInt(1, limit);
+            stm.setInt(2, offset);
+
+            try (ResultSet res = stm.executeQuery()) {
+                while (res.next()) {
+                    Map<String, Object> absence = new LinkedHashMap<>();
+                    absence.put("studentId", res.getString("studentId"));
+                    absence.put("courseName", res.getString("courseName"));
+                    absence.put("startCourse", res.getTimestamp("startCourse").toLocalDateTime());
+                    absence.put("endCourse", res.getTimestamp("endCourse").toLocalDateTime());
+                    absence.put("isJustify", res.getBoolean("isJustify"));
+                    absences.add(absence);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return absences;
+    }
+
+
+    @Override
     public void addAbsence(String studentId, int courseId) {
         String sql = "INSERT INTO absence (studentId, courseId, isJustify) VALUES (?, ?, false)";
 
