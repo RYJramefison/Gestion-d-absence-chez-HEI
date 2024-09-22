@@ -398,8 +398,7 @@ public class ImplementDAO implements DAO {
         }
     }
 
-
-
+    // CRUD ABSENCE
 
     @Override
     public List<Map<String, Object>> getAllAbsences() {

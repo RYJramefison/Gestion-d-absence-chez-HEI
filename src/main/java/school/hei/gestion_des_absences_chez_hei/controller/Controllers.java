@@ -109,16 +109,16 @@ public class Controllers {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    // ABSENCE
+    // CONTROLLER ABSENCE
 
     @GetMapping("/absents")
     public List<Map<String, Object>> getAllAbsences() {
         return services.getAllAbsences();
     }
 
-    @GetMapping("/absents/{studentId}")
-    public List<Map<String, Object>> getAbsencesByStudentId(@PathVariable String studentId) {
-        return services.getAbsencesByStudentId(studentId);
+    @GetMapping("/absents/{id}")
+    public List<Map<String, Object>> getAbsencesByStudentId(@PathVariable String id) {
+        return services.getAbsencesByStudentId(id);
     }
 
     @PostMapping("/addAbsent")
