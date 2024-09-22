@@ -6,7 +6,7 @@ info:
 paths:
   /students:
     get:
-      summary: List of all students
+      summary: Retrieve all students
       responses:
         '200':
           description: A list of students
@@ -16,54 +16,62 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Student'
-    post:
-      summary: Create a new student
-      requestBody:
-        description: Student object that needs to be added
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Student'
-        required: true
+
+  /students/search:
+    get:
+      summary: Search for students with pagination
+      parameters:
+        - name: page
+          in: query
+          required: true
+          description: Page number
+          schema:
+            type: integer
+        - name: size
+          in: query
+          required: true
+          description: Page size
+          schema:
+            type: integer
       responses:
-        '201':
-          description: Student created successfully
-        '400':
-          description: Invalid input
+        '200':
+          description: A paginated list of students
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Student'
 
   /students/{id}:
     get:
-      summary: Retrieve a student by ID
+      summary: Retrieve a specific student by ID
       parameters:
         - name: id
           in: path
           required: true
-          description: ID of the student to retrieve
+          description: ID of the student
           schema:
-            type: integer
-            example: 1
+            type: string
       responses:
         '200':
-          description: A single student
+          description: Student details
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Student'
-        '404':
-          description: Student not found
 
     put:
-      summary: Update an existing student
+      summary: Update a specific student by ID
       parameters:
         - name: id
           in: path
           required: true
-          description: ID of the student to update
+          description: ID of the student
           schema:
-            type: integer
-            example: 1
+            type: string
       requestBody:
-        description: Student object that needs to be updated
+        description: Updated student object
         content:
           application/json:
             schema:
@@ -72,26 +80,35 @@ paths:
       responses:
         '200':
           description: Student updated successfully
-        '400':
-          description: Invalid input
-        '404':
-          description: Student not found
 
     delete:
-      summary: Delete a student by ID
+      summary: Delete a specific student by ID
       parameters:
         - name: id
           in: path
           required: true
-          description: ID of the student to delete
+          description: ID of the student
           schema:
-            type: integer
-            example: 1
+            type: string
       responses:
         '204':
           description: Student deleted successfully
         '404':
           description: Student not found
+
+  /student:
+    post:
+      summary: Create a new student
+      requestBody:
+        description: Student object to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Student'
+        required: true
+      responses:
+        '201':
+          description: Student created successfully
 
 components:
   schemas:
@@ -99,35 +116,27 @@ components:
       type: object
       properties:
         id:
-          type: integer
-          example: 1
+          type: string
         firstName:
           type: string
-          example: "John"
         lastName:
           type: string
-          example: "Doe"
         email:
           type: string
-          example: "john.doe@example.com"
         contact:
           type: string
-          example: "+1234567890"
-        reference:
-          type: string
-          example: "REF12345"
         universityYears:
           type: string
-          example: "2020-2024"
+        genre:
+          type: string
         status:
           type: string
-          example: "Active"
       required:
         - id
         - firstName
         - lastName
         - email
         - contact
-        - reference
         - universityYears
+        - genre
         - status

@@ -1,92 +1,126 @@
 openapi: 3.0.0
 info:
   title: Absence Management API
-  description: API for managing student absences.
+  description: API for managing student absences in the system.
   version: 1.0.0
 paths:
-  /absents:
+  /absences:
     get:
-      summary: Retrieve a list of all absences
-      operationId: getAllAbsences
-      tags:
-        - Absences
+      summary: List of all absences
       responses:
         '200':
-          description: A list of all absences
+          description: A list of absences
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Absence'
-        '500':
-          description: Server error
-
-  /absents/{id}:
-    get:
-      summary: Retrieve absences by student ID
-      operationId: getAbsencesByStudentId
-      tags:
-        - Absences
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: ID of the student whose absences are to be retrieved
-          schema:
-            type: string
-      responses:
-        '200':
-          description: A list of absences for the specified student
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Absence'
-        '404':
-          description: Student not found
-        '500':
-          description: Server error
-
-  /addAbsent:
+                  type: object
+                  additionalProperties: true
     post:
-      summary: Add a new absence
-      operationId: createAbsence
-      tags:
-        - Absences
+      summary: Create a new absence
       requestBody:
-        description: Absence object that needs to be created
-        required: true
+        description: Absence object that needs to be added
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/Absence'
+        required: true
       responses:
         '201':
           description: Absence created successfully
         '400':
           description: Invalid input
-        '500':
-          description: Server error
 
-  /deleteAbsent:
-    delete:
-      summary: Delete an absence by student ID and course ID
-      operationId: deleteAbsence
-      tags:
-        - Absences
+  /absences/search:
+    get:
+      summary: Search for absences with pagination
+      parameters:
+        - name: page
+          in: query
+          required: true
+          description: Page number
+          schema:
+            type: integer
+        - name: size
+          in: query
+          required: true
+          description: Page size
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A paginated list of absences
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+
+  /absences/{id}:
+    get:
+      summary: Retrieve absences by student ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the student to retrieve absences for
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of absences for a specific student
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+
+  /absence:
+    put:
+      summary: Update an absence
       parameters:
         - name: studentId
           in: query
           required: true
-          description: The student ID
+          description: ID of the student
           schema:
             type: string
         - name: courseId
           in: query
           required: true
-          description: The course ID
+          description: ID of the course
+          schema:
+            type: integer
+        - name: isJustify
+          in: query
+          required: true
+          description: Whether the absence is justified
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Absence updated successfully
+        '400':
+          description: Invalid input
+
+    delete:
+      summary: Delete an absence
+      parameters:
+        - name: studentId
+          in: query
+          required: true
+          description: ID of the student
+          schema:
+            type: string
+        - name: courseId
+          in: query
+          required: true
+          description: ID of the course
           schema:
             type: integer
       responses:
@@ -94,47 +128,6 @@ paths:
           description: Absence deleted successfully
         '404':
           description: Absence not found
-        '500':
-          description: Server error
-
-  /updateAbsent:
-    put:
-      summary: Update an existing absence
-      operationId: updateAbsence
-      tags:
-        - Absences
-      parameters:
-        - name: studentId
-          in: query
-          required: true
-          description: The student ID
-          schema:
-            type: string
-        - name: courseId
-          in: query
-          required: true
-          description: The course ID
-          schema:
-            type: integer
-      requestBody:
-        description: Absence object with updated justification status
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                isJustify:
-                  type: boolean
-      responses:
-        '200':
-          description: Absence updated successfully
-        '404':
-          description: Absence not found
-        '400':
-          description: Invalid input
-        '500':
-          description: Server error
 
 components:
   schemas:
@@ -152,4 +145,3 @@ components:
       required:
         - courseId
         - studentId
-        - isJustify

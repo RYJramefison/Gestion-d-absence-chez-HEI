@@ -6,7 +6,7 @@ info:
 paths:
   /courses:
     get:
-      summary: Retrieve a list of all courses
+      summary: Retrieve all courses
       responses:
         '200':
           description: A list of courses
@@ -16,54 +16,62 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Course'
-    post:
-      summary: Create a new course
-      requestBody:
-        description: Course object that needs to be added
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Course'
-        required: true
-      responses:
-        '201':
-          description: Course created successfully
-        '400':
-          description: Invalid input
 
-  /course/{id}:
+  /courses/search:
     get:
-      summary: Retrieve a course by ID
+      summary: Search for courses with pagination
+      parameters:
+        - name: page
+          in: query
+          required: true
+          description: Page number
+          schema:
+            type: integer
+        - name: size
+          in: query
+          required: true
+          description: Page size
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A paginated list of courses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Course'
+
+  /courses/{id}:
+    get:
+      summary: Retrieve a specific course by ID
       parameters:
         - name: id
           in: path
           required: true
-          description: ID of the course to retrieve
+          description: ID of the course
           schema:
             type: integer
-            example: 1
       responses:
         '200':
-          description: A single course
+          description: Course details
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Course'
-        '404':
-          description: Course not found
 
     put:
-      summary: Update an existing course
+      summary: Update a specific course by ID
       parameters:
         - name: id
           in: path
           required: true
-          description: ID of the course to update
+          description: ID of the course
           schema:
             type: integer
-            example: 1
       requestBody:
-        description: Course object that needs to be updated
+        description: Updated course object
         content:
           application/json:
             schema:
@@ -72,26 +80,35 @@ paths:
       responses:
         '200':
           description: Course updated successfully
-        '400':
-          description: Invalid input
-        '404':
-          description: Course not found
 
     delete:
-      summary: Delete a course by ID
+      summary: Delete a specific course by ID
       parameters:
         - name: id
           in: path
           required: true
-          description: ID of the course to delete
+          description: ID of the course
           schema:
             type: integer
-            example: 1
       responses:
         '204':
           description: Course deleted successfully
         '404':
           description: Course not found
+
+  /course:
+    post:
+      summary: Create a new course
+      requestBody:
+        description: Course object to create
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Course'
+        required: true
+      responses:
+        '201':
+          description: Course created successfully
 
 components:
   schemas:
@@ -100,20 +117,20 @@ components:
       properties:
         id:
           type: integer
-          example: 1
         name:
           type: string
-          example: "Mathematics"
-        startCourse:
+        starCourse:
           type: string
           format: date-time
-          example: "2024-01-01T10:00:00"
         endCourse:
           type: string
           format: date-time
-          example: "2024-06-01T12:00:00"
+        presenceSheet:
+          type: array
+          items:
+            $ref: '#/components/schemas/Student'
       required:
         - id
         - name
-        - startCourse
+        - starCourse
         - endCourse

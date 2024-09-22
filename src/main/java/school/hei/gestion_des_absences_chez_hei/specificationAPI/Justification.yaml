@@ -6,78 +6,85 @@ info:
 paths:
   /justifications:
     get:
-      summary: Retrieve a list of all justifications
-      operationId: getAllJustifications
-      tags:
-        - Justifications
+      summary: List of all justifications
       responses:
         '200':
-          description: A list of all justifications
+          description: A list of justifications
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Justification'
-        '500':
-          description: Server error
+                  type: object
+                  additionalProperties: true
 
-  /justification/{studentId}/{courseId}:
+  /justifications/search:
     get:
-      summary: Retrieve a specific justification by student ID and course ID
-      operationId: getJustification
-      tags:
-        - Justifications
+      summary: Search for justifications with pagination
       parameters:
-        - name: studentId
-          in: path
+        - name: page
+          in: query
           required: true
-          description: ID of the student
+          description: Page number
           schema:
-            type: string
-        - name: courseId
-          in: path
+            type: integer
+        - name: size
+          in: query
           required: true
-          description: ID of the course
+          description: Page size
           schema:
             type: integer
       responses:
         '200':
-          description: A specific justification
+          description: A paginated list of justifications
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Justification'
-        '404':
-          description: Justification not found
-        '500':
-          description: Server error
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+
+  /justification/{studentId}/{courseId}:
+    get:
+      summary: Retrieve a justification for a specific student and course
+      parameters:
+        - name: studentId
+          in: path
+          required: true
+          description: ID of the student
+          schema:
+            type: string
+        - name: courseId
+          in: path
+          required: true
+          description: ID of the course
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Justification details
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
 
     post:
       summary: Save a new justification
-      operationId: saveJustification
-      tags:
-        - Justifications
       requestBody:
-        description: Justification object that needs to be saved
-        required: true
+        description: Justification object to save
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/Justification'
+        required: true
       responses:
         '201':
           description: Justification created successfully
-        '400':
-          description: Invalid input
-        '500':
-          description: Server error
 
     put:
       summary: Update an existing justification
-      operationId: updateJustification
-      tags:
-        - Justifications
       parameters:
         - name: studentId
           in: path
@@ -92,25 +99,18 @@ paths:
           schema:
             type: integer
       requestBody:
-        description: Justification object that needs to be updated
-        required: true
+        description: Updated justification object
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/Justification'
+        required: true
       responses:
         '200':
           description: Justification updated successfully
-        '404':
-          description: Justification not found
-        '500':
-          description: Server error
 
     delete:
-      summary: Delete a justification by student ID and course ID
-      operationId: deleteJustification
-      tags:
-        - Justifications
+      summary: Delete a justification for a specific student and course
       parameters:
         - name: studentId
           in: path
@@ -129,8 +129,6 @@ paths:
           description: Justification deleted successfully
         '404':
           description: Justification not found
-        '500':
-          description: Server error
 
 components:
   schemas:
