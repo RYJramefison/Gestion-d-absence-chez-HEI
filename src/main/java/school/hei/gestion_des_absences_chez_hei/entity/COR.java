@@ -2,6 +2,7 @@ package school.hei.gestion_des_absences_chez_hei.entity;
 
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -15,7 +16,7 @@ public class COR {
 
     private String etat;
 
-    private LocalDateTime date;
+    private LocalDate date;
 
     private String studentID;
 }

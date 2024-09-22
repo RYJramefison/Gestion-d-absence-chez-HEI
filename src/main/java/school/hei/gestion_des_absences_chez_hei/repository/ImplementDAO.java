@@ -774,6 +774,7 @@ public class ImplementDAO implements DAO {
         }
     }
 
+    // CRUD COR
 
 
     @Override
@@ -790,7 +791,7 @@ public class ImplementDAO implements DAO {
                 Map<String, Object> cor = new LinkedHashMap<>();
                 cor.put("corId", res.getInt("corId"));
                 cor.put("etat", res.getString("etat"));
-                cor.put("date", res.getTimestamp("date").toLocalDateTime());
+                cor.put("date", res.getDate("date").toLocalDate());  // Utiliser LocalDate
                 cor.put("studentId", res.getString("studentId"));
                 cor.put("studentFirstName", res.getString("firstName"));
                 cor.put("studentLastName", res.getString("lastName"));
@@ -820,7 +821,7 @@ public class ImplementDAO implements DAO {
                     Map<String, Object> cor = new LinkedHashMap<>();
                     cor.put("corId", res.getInt("corId"));
                     cor.put("etat", res.getString("etat"));
-                    cor.put("date", res.getTimestamp("date").toLocalDateTime());
+                    cor.put("date", res.getDate("date").toLocalDate());
                     cor.put("studentId", res.getString("studentId"));
                     cor.put("studentFirstName", res.getString("firstName"));
                     cor.put("studentLastName", res.getString("lastName"));
@@ -851,7 +852,7 @@ public class ImplementDAO implements DAO {
                     cor = new LinkedHashMap<>();
                     cor.put("corId", res.getInt("corId"));
                     cor.put("etat", res.getString("etat"));
-                    cor.put("date", res.getTimestamp("date").toLocalDateTime());
+                    cor.put("date", res.getDate("date").toLocalDate());
                     cor.put("studentId", res.getString("studentId"));
                     cor.put("studentFirstName", res.getString("firstName"));
                     cor.put("studentLastName", res.getString("lastName"));
@@ -872,7 +873,7 @@ public class ImplementDAO implements DAO {
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, cor.getEtat());
-            ps.setTimestamp(2, Timestamp.valueOf(cor.getDate()));
+            ps.setDate(2, Date.valueOf(cor.getDate()));
             ps.setString(3, cor.getStudentID());
 
             ps.executeUpdate();
@@ -890,7 +891,7 @@ public class ImplementDAO implements DAO {
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, cor.getEtat());
-            ps.setTimestamp(2, Timestamp.valueOf(cor.getDate()));
+            ps.setDate(2, Date.valueOf(cor.getDate()));
             ps.setString(3, studentId);
             ps.setInt(4, corId);
 
@@ -917,5 +918,6 @@ public class ImplementDAO implements DAO {
             e.printStackTrace();
         }
     }
+
 
 }

@@ -65,16 +65,17 @@ CREATE TABLE absence (
                          isJustify BOOLEAN
 );
 
-INSERT INTO absence (courseId, studentId, isJustify)
-VALUES
-    (1, 'STD23001', FALSE),
-    (1, 'STD23004', TRUE),
-    (2, 'STD23002', TRUE),
-    (2, 'STD22003', FALSE),
-    (4, 'STD23001', FALSE),
-    (4, 'STD22003', TRUE),
-    (3, 'STD23004', FALSE),
-    (3, 'STD22055', TRUE);
+                                    INSERT INTO absence (courseId, studentId, isJustify)
+                                    VALUES
+                                        (1, 'STD23001', FALSE),
+                                        (1, 'STD23004', TRUE),
+                                        (2, 'STD23002', TRUE),
+                                        (2, 'STD22003', FALSE),
+                                        (4, 'STD23001', FALSE),
+                                        (4, 'STD22003', TRUE),
+                                        (3, 'STD23004', FALSE),
+                                        (3, 'STD22055', TRUE),
+                                        (3, 'STD23001', FALSE);
 
 
                                     -- JUSTIFICATION TABLE --
@@ -101,3 +102,18 @@ VALUES
 
 
 SELECT * FROM student LIMIT 5 OFFSET 5;
+
+                                    -- COR TABLE --
+
+                                    CREATE TABLE cor (
+                                                         id SERIAL PRIMARY KEY,
+                                                         etat VARCHAR(50) NOT NULL,
+                                                         date DATE NOT NULL,
+                                                         studentId VARCHAR(20) NOT NULL,
+                                                         FOREIGN KEY (studentId) REFERENCES student(id)
+                                    );
+
+                                    INSERT INTO cor (etat, date, studentId) VALUES
+                                                                                ('Convocation', '2024-09-15', 'STD23001'),
+                                                                                ('Observation', '2024-08-30', 'STD23002');
+

@@ -5,10 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import org.springframework.stereotype.Service;
-import school.hei.gestion_des_absences_chez_hei.entity.Admin;
-import school.hei.gestion_des_absences_chez_hei.entity.Course;
-import school.hei.gestion_des_absences_chez_hei.entity.Justification;
-import school.hei.gestion_des_absences_chez_hei.entity.Student;
+import school.hei.gestion_des_absences_chez_hei.entity.*;
 import school.hei.gestion_des_absences_chez_hei.repository.DAO;
 import school.hei.gestion_des_absences_chez_hei.repository.ImplementDAO;
 
@@ -128,7 +125,7 @@ public class Services {
         DAO.updateAbsence(studentId, courseId, isJustify);
     }
 
-    // CRUD JUSTIFICATION
+    // SERVICE   JUSTIFICATION
 
     public List<Map<String, Object>> getAllJustifications() {
         return DAO.getAllJustifications();
@@ -154,6 +151,32 @@ public class Services {
         DAO.deleteJustification(studentId, courseId);
     }
 
+
+    // SERVICE COR
+
+    public List<Map<String, Object>> getAllCORs() {
+        return DAO.getAllCORs();
+    }
+
+    public List<Map<String, Object>> getAllCORs(int limit, int offset) {
+        return DAO.getAllCORs(limit, offset);
+    }
+
+    public Map<String, Object> getCOR(String studentId, int corId) {
+        return DAO.getCOR(studentId, corId);
+    }
+
+    public void saveCOR(COR cor) {
+        DAO.saveCOR(cor);
+    }
+
+    public void updateCOR(String studentId, int corId, COR cor) {
+        DAO.updateCOR(studentId, corId, cor);
+    }
+
+    public void deleteCOR(String studentId, int corId) {
+        DAO.deleteCOR(studentId, corId);
+    }
 
 
 }

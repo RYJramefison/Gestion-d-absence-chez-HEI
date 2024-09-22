@@ -198,4 +198,37 @@ public class Controllers {
     public void deleteJustification(@PathVariable String studentId, @PathVariable int courseId) {
         services.deleteJustification(studentId, courseId);
     }
+
+    // CONTROLLER COR
+
+    @GetMapping("/cors")
+    public List<Map<String, Object>> getAllCORs() {
+        return services.getAllCORs();
+    }
+
+    @GetMapping("/cors/search")
+    public List<Map<String, Object>> getAllCORs(@RequestParam @MatrixVariable int page,@RequestParam  @MatrixVariable int size) {
+        int offset = page * size;
+        return services.getAllCORs(size, offset);
+    }
+
+    @GetMapping("/cors/{studentId}/{corId}")
+    public Map<String, Object> getCOR(@PathVariable String studentId, @PathVariable int corId) {
+        return services.getCOR(studentId, corId);
+    }
+
+    @PostMapping("/cor")
+    public void saveCOR(@RequestBody COR cor) {
+        services.saveCOR(cor);
+    }
+
+    @PutMapping("/cor/{studentId}/{corId}")
+    public void updateCOR(@PathVariable String studentId, @PathVariable int corId, @RequestBody COR cor) {
+        services.updateCOR(studentId, corId, cor);
+    }
+
+    @DeleteMapping("/cor/{studentId}/{corId}")
+    public void deleteCOR(@PathVariable String studentId, @PathVariable int corId) {
+        services.deleteCOR(studentId, corId);
+    }
 }
