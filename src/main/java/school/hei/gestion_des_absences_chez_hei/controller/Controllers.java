@@ -199,6 +199,7 @@ public class Controllers {
         services.deleteJustification(studentId, courseId);
     }
 
+
     // CONTROLLER COR
 
     @GetMapping("/cors")

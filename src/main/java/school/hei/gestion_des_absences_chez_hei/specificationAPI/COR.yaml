@@ -1,0 +1,164 @@
+openapi: 3.0.0
+info:
+  title: COR Management API
+  description: API for managing Convocations, Observations, and Expulsions (COR) for students.
+  version: 1.0.0
+
+paths:
+  /cors:
+    get:
+      summary: List of all CORs
+      responses:
+        '200':
+          description: A list of all CORs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/COR'
+    post:
+      summary: Create a new COR
+      requestBody:
+        description: COR object that needs to be added
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/COR'
+        required: true
+      responses:
+        '201':
+          description: COR created successfully
+        '400':
+          description: Invalid input
+
+  /cors/search:
+    get:
+      summary: Search for CORs with pagination
+      parameters:
+        - name: page
+          in: query
+          required: true
+          description: Page number
+          schema:
+            type: integer
+        - name: size
+          in: query
+          required: true
+          description: Page size
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A paginated list of CORs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/COR'
+
+  /cors/{studentId}/{corId}:
+    get:
+      summary: Retrieve a specific COR
+      parameters:
+        - name: studentId
+          in: path
+          required: true
+          description: ID of the student
+          schema:
+            type: string
+        - name: corId
+          in: path
+          required: true
+          description: ID of the COR
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A single COR
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/COR'
+        '404':
+          description: COR not found
+
+    put:
+      summary: Update an existing COR
+      parameters:
+        - name: studentId
+          in: path
+          required: true
+          description: ID of the student
+          schema:
+            type: string
+        - name: corId
+          in: path
+          required: true
+          description: ID of the COR
+          schema:
+            type: integer
+      requestBody:
+        description: COR object that needs to be updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/COR'
+        required: true
+      responses:
+        '200':
+          description: COR updated successfully
+        '400':
+          description: Invalid input
+        '404':
+          description: COR not found
+
+    delete:
+      summary: Delete a COR
+      parameters:
+        - name: studentId
+          in: path
+          required: true
+          description: ID of the student
+          schema:
+            type: string
+        - name: corId
+          in: path
+          required: true
+          description: ID of the COR
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: COR deleted successfully
+        '404':
+          description: COR not found
+
+components:
+  schemas:
+    COR:
+      type: object
+      properties:
+        corId:
+          type: integer
+        etat:
+          type: string
+          description: Status of the COR (Convocation, Observation, Expulsion)
+        date:
+          type: string
+          format: date
+        studentId:
+          type: string
+          description: ID of the student
+        studentFirstName:
+          type: string
+          description: First name of the student
+        studentLastName:
+          type: string
+          description: Last name of the student
+      required:
+        - corId
+        - etat
+        - date
+        - studentId

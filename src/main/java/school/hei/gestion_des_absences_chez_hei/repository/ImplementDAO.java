@@ -205,7 +205,6 @@ public class ImplementDAO implements DAO {
 
     // CRUD COURSE
 
-
     @Override
     public List<Course> getAllCourse() {
         List<Course> courses = new ArrayList<>();
@@ -479,6 +478,7 @@ public class ImplementDAO implements DAO {
             e.printStackTrace();
         }
     }
+
 
     // CRUD ABSENCE
 
@@ -774,8 +774,8 @@ public class ImplementDAO implements DAO {
         }
     }
 
-    // CRUD COR
 
+    // CRUD COR
 
     @Override
     public List<Map<String, Object>> getAllCORs() {
@@ -918,6 +918,4 @@ public class ImplementDAO implements DAO {
             e.printStackTrace();
         }
     }
-
-
 }

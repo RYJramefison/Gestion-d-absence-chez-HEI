@@ -21,6 +21,7 @@ import java.util.Map;
 public class Services {
     private ImplementDAO DAO;
 
+
     // SERVICE STUDENT
 
     public List<Student> getAllStudent(){
@@ -46,6 +47,7 @@ public class Services {
     public Student getOneStudent(String id){
         return DAO.getOneStudent(id);
     }
+
 
     // SERVICE COURSE
 
@@ -73,6 +75,7 @@ public class Services {
         return DAO.getOneCourse(id);
     }
 
+
     // SERVICE ADMIN
 
     public List<Admin> getAllAdmin(){
@@ -98,6 +101,7 @@ public class Services {
     public Admin getOneAdmin(String id){
         return DAO.getOneAdmin(id);
     }
+
 
     // SERVICE ABSENCE
 
@@ -125,7 +129,8 @@ public class Services {
         DAO.updateAbsence(studentId, courseId, isJustify);
     }
 
-    // SERVICE   JUSTIFICATION
+
+    // SERVICE JUSTIFICATION
 
     public List<Map<String, Object>> getAllJustifications() {
         return DAO.getAllJustifications();
@@ -140,11 +145,11 @@ public class Services {
     }
 
     public void saveJustification(Justification justification) {
-            DAO.saveJustification(justification);
+        DAO.saveJustification(justification);
     }
 
     public void updateJustification(String studentId, int courseId, Justification justification) {
-            DAO.updateJustification(studentId, courseId, justification);
+        DAO.updateJustification(studentId, courseId, justification);
     }
 
     public void deleteJustification(String studentId, int courseId) {
@@ -177,6 +182,4 @@ public class Services {
     public void deleteCOR(String studentId, int corId) {
         DAO.deleteCOR(studentId, corId);
     }
-
-
 }
