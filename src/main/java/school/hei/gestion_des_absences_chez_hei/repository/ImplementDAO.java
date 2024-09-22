@@ -4,11 +4,9 @@ import org.springframework.stereotype.Repository;
 import school.hei.gestion_des_absences_chez_hei.entity.*;
 
 import java.sql.*;
+import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Repository
 
@@ -400,17 +398,19 @@ public class ImplementDAO implements DAO {
     @Override
     public List<Map<String, Object>> getAllAbsences() {
         List<Map<String, Object>> absences = new ArrayList<>();
-        String sql = "SELECT a.studentId, c.name AS course_name, c.startCourse, c.endCourse, a.isJusify FROM absence a JOIN course c ON a.courseId = c.id";
+        String sql = "SELECT a.studentId, c.name AS courseName, c.startCourse, c.endCourse, a.isJustify " +
+                "FROM absence a JOIN course c ON a.courseId = c.id";
 
         try (Statement stm = this.connection.getConnection().createStatement();
              ResultSet res = stm.executeQuery(sql)) {
 
             while (res.next()) {
-                Map<String, Object> absence = new HashMap<>();
-                absence.put("student_id", res.getString("studentId"));
-                absence.put("course_name", res.getString("courseName"));
+                Map<String, Object> absence = new LinkedHashMap<>(); // Utiliser LinkedHashMap pour maintenir l'ordre
+                absence.put("studentId", res.getString("studentId"));
+                absence.put("courseName", res.getString("courseName"));
                 absence.put("startCourse", res.getTimestamp("startCourse").toLocalDateTime());
                 absence.put("endCourse", res.getTimestamp("endCourse").toLocalDateTime());
+                absence.put("isJustify", res.getBoolean("isJustify"));
                 absences.add(absence);
             }
         } catch (SQLException e) {
@@ -420,10 +420,9 @@ public class ImplementDAO implements DAO {
         return absences;
     }
 
-
     @Override
     public void addAbsence(String studentId, int courseId) {
-        String sql = "INSERT INTO absence (studentId, courseId) VALUES (?, ?)";
+        String sql = "INSERT INTO absence (studentId, courseId, isJustify) VALUES (?, ?, false)";
 
         try (Connection conn = this.connection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -437,10 +436,11 @@ public class ImplementDAO implements DAO {
         }
     }
 
+
     @Override
     public List<Map<String, Object>> getAbsencesByStudentId(String studentId) {
         List<Map<String, Object>> absences = new ArrayList<>();
-        String sql = "SELECT a.studentId, c.name AS course_name, c.startCourse, c.endCourse " +
+        String sql = "SELECT a.studentId, c.name AS courseName, c.startCourse, c.endCourse, a.isJustify " +
                 "FROM absence a " +
                 "JOIN course c ON a.courseId = c.id WHERE a.studentId = ?";
 
@@ -451,11 +451,12 @@ public class ImplementDAO implements DAO {
             ResultSet res = ps.executeQuery();
 
             while (res.next()) {
-                Map<String, Object> absence = new HashMap<>();
+                Map<String, Object> absence = new LinkedHashMap<>(); // Utiliser LinkedHashMap pour maintenir l'ordre
                 absence.put("studentId", res.getString("studentId"));
                 absence.put("courseName", res.getString("courseName"));
                 absence.put("startCourse", res.getTimestamp("startCourse").toLocalDateTime());
                 absence.put("endCourse", res.getTimestamp("endCourse").toLocalDateTime());
+                absence.put("isJustify", res.getBoolean("isJustify"));
                 absences.add(absence);
             }
 
@@ -465,6 +466,8 @@ public class ImplementDAO implements DAO {
 
         return absences;
     }
+
+
 
     @Override
     public void deleteAbsence(String studentId, int courseId) {
@@ -482,6 +485,7 @@ public class ImplementDAO implements DAO {
         }
     }
 
+
     // CRUD JUSTIFICATION
 
     @Override
@@ -497,7 +501,7 @@ public class ImplementDAO implements DAO {
              ResultSet res = stm.executeQuery(sql)) {
 
             while (res.next()) {
-                Map<String, Object> justification = new HashMap<>();
+                Map<String, Object> justification = new LinkedHashMap<>();
                 justification.put("studentId", res.getString("studentId"));
                 justification.put("studentFirstName", res.getString("studentFirstName"));
                 justification.put("studentLastName", res.getString("studentLastName"));
@@ -534,7 +538,7 @@ public class ImplementDAO implements DAO {
             ResultSet res = ps.executeQuery();
 
             if (res.next()) {
-                justification = new HashMap<>();
+                justification = new LinkedHashMap<>();
                 justification.put("studentId", res.getString("studentId"));
                 justification.put("studentFirstName", res.getString("studentFirstName"));
                 justification.put("studentLastName", res.getString("studentLastName"));
