@@ -67,6 +67,8 @@ public interface DAO {
 
      List<Map<String, Object>> getAllJustifications();
 
+    List<Map<String, Object>> getAllJustifications(int limit, int offset);
+
      Map<String, Object> getJustification(String studentId, int courseId);
 
     void saveJustification(Justification justification);

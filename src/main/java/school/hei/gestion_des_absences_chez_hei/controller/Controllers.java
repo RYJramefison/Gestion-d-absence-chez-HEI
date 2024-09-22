@@ -35,19 +35,19 @@ public class Controllers {
         return services.getOneStudent(id);
     }
 
-    @PostMapping("/addStudent")
+    @PostMapping("/student")
     public ResponseEntity<Void> createStudent(@RequestBody Student toAdd) {
         services.addStudent(toAdd);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @DeleteMapping("/deleteStudent/{id}")
+    @DeleteMapping("/student/{id}")
     public ResponseEntity<Void> deleteStudent(@PathVariable String id) {
         services.removeStudent(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @PutMapping("/updateStudent/{id}")
+    @PutMapping("/student/{id}")
     public ResponseEntity<Void> updateStudent(@PathVariable String id, @RequestBody Student student) {
         services.updateStudent(id, student);
         return ResponseEntity.status(HttpStatus.OK).build();
@@ -72,19 +72,19 @@ public class Controllers {
         return services.getOneCourse(id);
     }
 
-    @PostMapping("/addCourse")
+    @PostMapping("/course")
     public ResponseEntity<Void> createCourse(@RequestBody Course toAdd) {
         services.addCourse(toAdd);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @DeleteMapping("/deleteCourse/{id}")
+    @DeleteMapping("/course/{id}")
     public ResponseEntity<Void> deleteCourse(@PathVariable int id) {
         services.removeCourse(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @PutMapping("/updateCourse/{id}")
+    @PutMapping("/course/{id}")
     public ResponseEntity<Void> updateCourse(@PathVariable int id, @RequestBody Course course) {
         services.updateCourse(id, course);
         return ResponseEntity.status(HttpStatus.OK).build();
@@ -130,35 +130,35 @@ public class Controllers {
 
     // CONTROLLER ABSENCE
 
-    @GetMapping("/absents")
+    @GetMapping("/absences")
     public List<Map<String, Object>> getAllAbsences() {
         return services.getAllAbsences();
     }
 
-    @GetMapping("/absences")
+    @GetMapping("/absences/search")
     public List<Map<String, Object>> getAllAbsences(@RequestParam @MatrixVariable int page,@RequestParam  @MatrixVariable int size) {
         int offset = page * size;
         return services.getAllAbsences(size, offset);
     }
 
-    @GetMapping("/absents/{id}")
+    @GetMapping("/absences/{id}")
     public List<Map<String, Object>> getAbsencesByStudentId(@PathVariable String id) {
         return services.getAbsencesByStudentId(id);
     }
 
-    @PutMapping("/absent")
+    @PutMapping("/absence")
     public ResponseEntity<Void> updateAbsence(@RequestParam String studentId, @RequestParam int courseId, @RequestParam boolean isJustify) {
         services.updateAbsence(studentId, courseId, isJustify);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @PostMapping("/addAbsent")
+    @PostMapping("/absence")
     public ResponseEntity<Void> createAbsence(@RequestBody Absence absenceRequest) {
         services.addAbsence(absenceRequest.getStudentId(), absenceRequest.getCourseId());
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @DeleteMapping("/deleteAbsent")
+    @DeleteMapping("/absence")
     public ResponseEntity<Void> deleteAbsence(@RequestParam String studentId, @RequestParam int courseId) {
         services.deleteAbsence(studentId, courseId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
@@ -170,6 +170,12 @@ public class Controllers {
     @GetMapping("/justifications")
     public List<Map<String, Object>> getAllJustifications() {
         return services.getAllJustifications();
+    }
+
+    @GetMapping("/justifications/search")
+    public List<Map<String, Object>> getAllJustifications(@RequestParam @MatrixVariable int page,@RequestParam  @MatrixVariable int size) {
+        int offset = page * size;
+        return services.getAllJustifications(size, offset);
     }
 
     @GetMapping("/justification/{studentId}/{courseId}")

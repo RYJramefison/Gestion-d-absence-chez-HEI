@@ -134,6 +134,10 @@ public class Services {
         return DAO.getAllJustifications();
     }
 
+    public List<Map<String, Object>> getAllJustifications(int limit, int offset) {
+        return DAO.getAllJustifications(limit, offset);
+    }
+
     public Map<String, Object> getJustification(String studentId, int courseId) {
         return DAO.getJustification(studentId,courseId);
     }

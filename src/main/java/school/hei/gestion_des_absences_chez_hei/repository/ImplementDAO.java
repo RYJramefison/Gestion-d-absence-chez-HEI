@@ -651,6 +651,41 @@ public class ImplementDAO implements DAO {
         return justifications;
     }
 
+    @Override
+    public List<Map<String, Object>> getAllJustifications(int limit, int offset) {
+        List<Map<String, Object>> justifications = new ArrayList<>();
+        String sql = "SELECT j.studentId, s.firstName AS studentFirstName, s.lastName AS studentLastName, " +
+                "c.name AS courseName, j.type, j.description, j.date " +
+                "FROM justification j " +
+                "JOIN student s ON j.studentId = s.id " +
+                "JOIN course c ON j.courseId = c.id " +
+                "LIMIT ? OFFSET ?";
+
+        try (PreparedStatement stm = this.connection.getConnection().prepareStatement(sql)) {
+            stm.setInt(1, limit);
+            stm.setInt(2, offset);
+
+            try (ResultSet res = stm.executeQuery()) {
+                while (res.next()) {
+                    Map<String, Object> justification = new LinkedHashMap<>();
+                    justification.put("studentId", res.getString("studentId"));
+                    justification.put("studentFirstName", res.getString("studentFirstName"));
+                    justification.put("studentLastName", res.getString("studentLastName"));
+                    justification.put("courseName", res.getString("courseName"));
+                    justification.put("type", res.getString("type"));
+                    justification.put("description", res.getString("description"));
+                    justification.put("date", res.getDate("date").toLocalDate());
+                    justifications.add(justification);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return justifications;
+    }
+
+
 
     @Override
     public Map<String, Object> getJustification(String studentId, int courseId) {
