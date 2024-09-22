@@ -1,0 +1,156 @@
+openapi: 3.0.0
+info:
+  title: Justification Management API
+  description: API for managing justifications for student absences.
+  version: 1.0.0
+paths:
+  /justifications:
+    get:
+      summary: Retrieve a list of all justifications
+      operationId: getAllJustifications
+      tags:
+        - Justifications
+      responses:
+        '200':
+          description: A list of all justifications
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Justification'
+        '500':
+          description: Server error
+
+  /justification/{studentId}/{courseId}:
+    get:
+      summary: Retrieve a specific justification by student ID and course ID
+      operationId: getJustification
+      tags:
+        - Justifications
+      parameters:
+        - name: studentId
+          in: path
+          required: true
+          description: ID of the student
+          schema:
+            type: string
+        - name: courseId
+          in: path
+          required: true
+          description: ID of the course
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A specific justification
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Justification'
+        '404':
+          description: Justification not found
+        '500':
+          description: Server error
+
+    post:
+      summary: Save a new justification
+      operationId: saveJustification
+      tags:
+        - Justifications
+      requestBody:
+        description: Justification object that needs to be saved
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Justification'
+      responses:
+        '201':
+          description: Justification created successfully
+        '400':
+          description: Invalid input
+        '500':
+          description: Server error
+
+    put:
+      summary: Update an existing justification
+      operationId: updateJustification
+      tags:
+        - Justifications
+      parameters:
+        - name: studentId
+          in: path
+          required: true
+          description: ID of the student
+          schema:
+            type: string
+        - name: courseId
+          in: path
+          required: true
+          description: ID of the course
+          schema:
+            type: integer
+      requestBody:
+        description: Justification object that needs to be updated
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Justification'
+      responses:
+        '200':
+          description: Justification updated successfully
+        '404':
+          description: Justification not found
+        '500':
+          description: Server error
+
+    delete:
+      summary: Delete a justification by student ID and course ID
+      operationId: deleteJustification
+      tags:
+        - Justifications
+      parameters:
+        - name: studentId
+          in: path
+          required: true
+          description: ID of the student
+          schema:
+            type: string
+        - name: courseId
+          in: path
+          required: true
+          description: ID of the course
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Justification deleted successfully
+        '404':
+          description: Justification not found
+        '500':
+          description: Server error
+
+components:
+  schemas:
+    Justification:
+      type: object
+      properties:
+        studentId:
+          type: string
+        courseId:
+          type: integer
+        type:
+          type: string
+        description:
+          type: string
+        date:
+          type: string
+          format: date
+      required:
+        - studentId
+        - courseId
+        - type
+        - description
+        - date

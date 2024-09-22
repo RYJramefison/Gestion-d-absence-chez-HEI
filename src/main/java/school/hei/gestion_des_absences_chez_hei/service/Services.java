@@ -90,8 +90,6 @@ public class Services {
         return DAO.getOneAdmin(id);
     }
 
-    // SERVICE ABSENCE
-
     public List<Map<String, Object>> getAllAbsences() {
         return DAO.getAllAbsences();
     }
@@ -106,6 +104,10 @@ public class Services {
 
     public void deleteAbsence(String studentId, int courseId) {
         DAO.deleteAbsence(studentId, courseId);
+    }
+
+    public void updateAbsence(String studentId, int courseId, boolean isJustify) {
+        DAO.updateAbsence(studentId, courseId, isJustify);
     }
 
     // CRUD JUSTIFICATION
@@ -130,13 +132,6 @@ public class Services {
         DAO.deleteJustification(studentId, courseId);
     }
 
-//    private boolean validateJustification(Justification justification) {
-//        return justification != null &&
-//                justification.getStudentId() != null &&
-//                justification.getCourseId() > 0 &&
-//                justification.getType() != null &&
-//                justification.getDescription() != null &&
-//                justification.getDate() != null;
-//    }
+
 
 }

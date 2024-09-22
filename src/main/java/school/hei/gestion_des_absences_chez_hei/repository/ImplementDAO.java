@@ -436,7 +436,6 @@ public class ImplementDAO implements DAO {
         }
     }
 
-
     @Override
     public List<Map<String, Object>> getAbsencesByStudentId(String studentId) {
         List<Map<String, Object>> absences = new ArrayList<>();
@@ -467,6 +466,22 @@ public class ImplementDAO implements DAO {
         return absences;
     }
 
+    @Override
+    public void updateAbsence(String studentId, int courseId, boolean isJustify) {
+        String sql = "UPDATE absence SET isJustify = ? WHERE studentId = ? AND courseId = ?";
+
+        try (Connection conn = this.connection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setBoolean(1, isJustify);
+            ps.setString(2, studentId);
+            ps.setInt(3, courseId);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     @Override

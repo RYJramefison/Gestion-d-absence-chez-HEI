@@ -1,0 +1,155 @@
+openapi: 3.0.0
+info:
+  title: Absence Management API
+  description: API for managing student absences.
+  version: 1.0.0
+paths:
+  /absents:
+    get:
+      summary: Retrieve a list of all absences
+      operationId: getAllAbsences
+      tags:
+        - Absences
+      responses:
+        '200':
+          description: A list of all absences
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Absence'
+        '500':
+          description: Server error
+
+  /absents/{id}:
+    get:
+      summary: Retrieve absences by student ID
+      operationId: getAbsencesByStudentId
+      tags:
+        - Absences
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the student whose absences are to be retrieved
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of absences for the specified student
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Absence'
+        '404':
+          description: Student not found
+        '500':
+          description: Server error
+
+  /addAbsent:
+    post:
+      summary: Add a new absence
+      operationId: createAbsence
+      tags:
+        - Absences
+      requestBody:
+        description: Absence object that needs to be created
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Absence'
+      responses:
+        '201':
+          description: Absence created successfully
+        '400':
+          description: Invalid input
+        '500':
+          description: Server error
+
+  /deleteAbsent:
+    delete:
+      summary: Delete an absence by student ID and course ID
+      operationId: deleteAbsence
+      tags:
+        - Absences
+      parameters:
+        - name: studentId
+          in: query
+          required: true
+          description: The student ID
+          schema:
+            type: string
+        - name: courseId
+          in: query
+          required: true
+          description: The course ID
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Absence deleted successfully
+        '404':
+          description: Absence not found
+        '500':
+          description: Server error
+
+  /updateAbsent:
+    put:
+      summary: Update an existing absence
+      operationId: updateAbsence
+      tags:
+        - Absences
+      parameters:
+        - name: studentId
+          in: query
+          required: true
+          description: The student ID
+          schema:
+            type: string
+        - name: courseId
+          in: query
+          required: true
+          description: The course ID
+          schema:
+            type: integer
+      requestBody:
+        description: Absence object with updated justification status
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                isJustify:
+                  type: boolean
+      responses:
+        '200':
+          description: Absence updated successfully
+        '404':
+          description: Absence not found
+        '400':
+          description: Invalid input
+        '500':
+          description: Server error
+
+components:
+  schemas:
+    Absence:
+      type: object
+      properties:
+        id:
+          type: integer
+        courseId:
+          type: integer
+        studentId:
+          type: string
+        isJustify:
+          type: boolean
+      required:
+        - courseId
+        - studentId
+        - isJustify

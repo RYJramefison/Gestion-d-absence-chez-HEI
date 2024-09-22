@@ -118,6 +118,12 @@ public class Controllers {
         return services.getAbsencesByStudentId(id);
     }
 
+    @PutMapping("/absent")
+    public ResponseEntity<Void> updateAbsence(@RequestParam String studentId, @RequestParam int courseId, @RequestParam boolean isJustify) {
+        services.updateAbsence(studentId, courseId, isJustify);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
     @PostMapping("/addAbsent")
     public ResponseEntity<Void> createAbsence(@RequestBody Absence absenceRequest) {
         services.addAbsence(absenceRequest.getStudentId(), absenceRequest.getCourseId());
@@ -129,6 +135,8 @@ public class Controllers {
         services.deleteAbsence(studentId, courseId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
+    // CONTROLLER JUSTIFICATION
 
     @GetMapping("/justifications")
     public List<Map<String, Object>> getAllJustifications() {

@@ -51,6 +51,8 @@ public interface DAO {
 
     List<Map<String, Object>> getAbsencesByStudentId(String studentId);
 
+    public void updateAbsence(String studentId, int courseId, boolean isJustify);
+
     void deleteAbsence(String studentId, int courseId);
 
     // CRUD JUSTIFICATION
