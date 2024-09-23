@@ -167,41 +167,6 @@ public class ImplementDAO implements DAO {
     }
 
 
-
-    private List<Student> getPresenceSheet(int courseId) {
-        List<Student> absentStudents = new ArrayList<>();
-        String sql = "SELECT s.* FROM student s " +
-                "JOIN absence a ON s.id = a.studentId " +
-                "WHERE a.courseId = ?";
-
-        try (Connection conn = this.connection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            ps.setInt(1, courseId);
-            ResultSet res = ps.executeQuery();
-
-            while (res.next()) {
-                Student student = new Student(
-                        res.getString("id"),
-                        res.getString("firstName"),
-                        res.getString("lastName"),
-                        res.getString("email"),
-                        res.getString("contact"),
-                        UniversityYears.valueOf(res.getString("universityYears")),
-                        Genre.valueOf(res.getString("genre")),
-                        res.getString("status")
-                );
-                absentStudents.add(student);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return absentStudents;
-    }
-
-
     // CRUD COURSE
 
     @Override
@@ -335,6 +300,39 @@ public class ImplementDAO implements DAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private List<Student> getPresenceSheet(int courseId) {
+        List<Student> absentStudents = new ArrayList<>();
+        String sql = "SELECT s.* FROM student s " +
+                "JOIN absence a ON s.id = a.studentId " +
+                "WHERE a.courseId = ?";
+
+        try (Connection conn = this.connection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, courseId);
+            ResultSet res = ps.executeQuery();
+
+            while (res.next()) {
+                Student student = new Student(
+                        res.getString("id"),
+                        res.getString("firstName"),
+                        res.getString("lastName"),
+                        res.getString("email"),
+                        res.getString("contact"),
+                        UniversityYears.valueOf(res.getString("universityYears")),
+                        Genre.valueOf(res.getString("genre")),
+                        res.getString("status")
+                );
+                absentStudents.add(student);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return absentStudents;
     }
 
 
