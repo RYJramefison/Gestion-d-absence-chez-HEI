@@ -12,7 +12,7 @@ import java.util.*;
 public class ImplementDAO implements DAO {
     ConnectionDB connection = new ConnectionDB();
 
-    // CRUD STUDENT
+    // CRUD STUDENT AND PAGINATION
 
 
     @Override
@@ -167,7 +167,7 @@ public class ImplementDAO implements DAO {
     }
 
 
-    // CRUD COURSE
+    // CRUD COURSE AND PAGINATION
 
     @Override
     public List<Course> getAllCourse() {
@@ -336,7 +336,7 @@ public class ImplementDAO implements DAO {
     }
 
 
-    // CRUD ADMIN
+    // CRUD ADMIN AND PAGINATION
 
     @Override
     public List<Admin> getAllAdmin() {
@@ -477,7 +477,7 @@ public class ImplementDAO implements DAO {
     }
 
 
-    // CRUD ABSENCE
+    // CRUD ABSENCE AND PAGINATION
 
     @Override
     public List<Map<String, Object>> getAllAbsences() {
@@ -612,7 +612,7 @@ public class ImplementDAO implements DAO {
     }
 
 
-    // CRUD JUSTIFICATION
+    // CRUD JUSTIFICATION AND PAGINATION
 
     @Override
     public List<Map<String, Object>> getAllJustifications() {
@@ -772,7 +772,7 @@ public class ImplementDAO implements DAO {
     }
 
 
-    // CRUD COR
+    // CRUD COR AND PAGINATION
 
     @Override
     public List<Map<String, Object>> getAllCORs() {
@@ -924,5 +924,4 @@ public class ImplementDAO implements DAO {
             e.printStackTrace();
         }
     }
-
 }
