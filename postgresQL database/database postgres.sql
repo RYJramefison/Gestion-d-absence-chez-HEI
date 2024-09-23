@@ -18,16 +18,16 @@ VALUES
     ('STD23002', 'Jane', 'Smith', 'jane.smith@example.com', '0987654321', 'L1', 'F', 'inactif'),
     ('STD22003', 'Alex', 'Johnson', 'alex.johnson@example.com', '1122334455', 'L1', 'M', 'actif'),
     ('STD23004', 'Emily', 'Davis', 'emily.davis@example.com', '5566778899', 'L1', 'F', 'actif'),
-    ('STD23005', 'Michael', 'Brown', 'michael.brown@example.com', '1231231234', 'L2', 'M', 'actif'),
-    ('STD23006', 'Sarah', 'Taylor', 'sarah.taylor@example.com', '3213214321', 'L2', 'F', 'actif'),
-    ('STD23007', 'David', 'Wilson', 'david.wilson@example.com', '9876543210', 'L2', 'M', 'inactif'),
+    ('STD23005', 'Michael', 'Brown', 'michael.brown@example.com', '1231231234', 'L1', 'M', 'actif'),
+    ('STD23006', 'Sarah', 'Taylor', 'sarah.taylor@example.com', '3213214321', 'L1', 'F', 'actif'),
+    ('STD23007', 'David', 'Wilson', 'david.wilson@example.com', '9876543210', 'L1', 'M', 'inactif'),
     ('STD23008', 'Olivia', 'Martinez', 'olivia.martinez@example.com', '7654321098', 'L1', 'F', 'actif'),
     ('STD23009', 'Daniel', 'Anderson', 'daniel.anderson@example.com', '4567890123', 'L1', 'M', 'actif'),
-    ('STD23010', 'Sophia', 'Thomas', 'sophia.thomas@example.com', '6547893210', 'L3', 'F', 'inactif'),
-    ('STD23011', 'James', 'Jackson', 'james.jackson@example.com', '2345678901', 'L3', 'M', 'actif'),
-    ('STD23012', 'Isabella', 'White', 'isabella.white@example.com', '3456789012', 'L3', 'F', 'actif'),
-    ('STD23013', 'Ethan', 'Harris', 'ethan.harris@example.com', '7654321987', 'L2', 'M', 'inactif'),
-    ('STD23014', 'Mia', 'Clark', 'mia.clark@example.com', '8765432109', 'L2', 'F', 'actif');
+    ('STD23010', 'Sophia', 'Thomas', 'sophia.thomas@example.com', '6547893210', 'L1', 'F', 'inactif'),
+    ('STD23011', 'James', 'Jackson', 'james.jackson@example.com', '2345678901', 'L1', 'M', 'actif'),
+    ('STD23012', 'Isabella', 'White', 'isabella.white@example.com', '3456789012', 'L1', 'F', 'actif'),
+    ('STD23013', 'Ethan', 'Harris', 'ethan.harris@example.com', '7654321987', 'L1', 'M', 'inactif'),
+    ('STD23014', 'Mia', 'Clark', 'mia.clark@example.com', '8765432109', 'L1', 'F', 'actif');
 
 
 
