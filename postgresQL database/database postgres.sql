@@ -70,12 +70,12 @@ VALUES
 
                                     -- ABSENCE TABLE --
 
-CREATE TABLE absence (
-                         id SERIAL PRIMARY KEY,
-                         studentId VARCHAR(50) REFERENCES student(id),
-                         courseId INT REFERENCES course(id),
-                         isJustify BOOLEAN
-);
+                                    CREATE TABLE absence (
+                                                             id SERIAL PRIMARY KEY,
+                                                             studentId VARCHAR(50) REFERENCES student(id) ON DELETE CASCADE ON UPDATE CASCADE,
+                                                             courseId INT REFERENCES course(id) ON DELETE CASCADE ON UPDATE CASCADE,
+                                                             isJustify BOOLEAN
+                                    );
 
                                     INSERT INTO absence (courseId, studentId, isJustify)
                                     VALUES
@@ -97,14 +97,14 @@ CREATE TABLE absence (
 
                                     -- JUSTIFICATION TABLE --
 
-CREATE TABLE justification (
-                               studentId VARCHAR(255) NOT NULL,
-                               courseId INT NOT NULL,
-                               type VARCHAR(100) NOT NULL,
-                               description TEXT NOT NULL,
-                               date DATE NOT NULL,
-                               PRIMARY KEY (studentId, courseId)
-);
+                                    CREATE TABLE justification (
+                                                                   studentId VARCHAR(255) NOT NULL REFERENCES student(id) ON DELETE CASCADE ON UPDATE CASCADE,
+                                                                   courseId INT NOT NULL REFERENCES course(id) ON DELETE CASCADE ON UPDATE CASCADE,
+                                                                   type VARCHAR(100) NOT NULL,
+                                                                   description TEXT NOT NULL,
+                                                                   date DATE NOT NULL,
+                                                                   PRIMARY KEY (studentId, courseId)
+                                    );
 
 INSERT INTO justification (studentId, courseId, type, description, date)
     VALUES
@@ -122,7 +122,7 @@ INSERT INTO justification (studentId, courseId, type, description, date)
                                                          status VARCHAR(50) NOT NULL,
                                                          date DATE NOT NULL,
                                                          studentId VARCHAR(20) NOT NULL,
-                                                         FOREIGN KEY (studentId) REFERENCES student(id)
+                                                         FOREIGN KEY (studentId) REFERENCES student(id) ON DELETE CASCADE ON UPDATE CASCADE
                                     );
 
                                     INSERT INTO cor (status, date, studentId) VALUES
