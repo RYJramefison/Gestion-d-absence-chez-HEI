@@ -171,8 +171,8 @@ public class ImplementDAO implements DAO {
     private List<Student> getPresenceSheet(int courseId) {
         List<Student> absentStudents = new ArrayList<>();
         String sql = "SELECT s.* FROM student s " +
-                "JOIN absence a ON s.id = a.student_id " +
-                "WHERE a.course_id = ?";
+                "JOIN absence a ON s.id = a.studentId " +
+                "WHERE a.courseId = ?";
 
         try (Connection conn = this.connection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {

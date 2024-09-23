@@ -82,7 +82,7 @@ CREATE TABLE absence (
                                         (1, 'STD23001', FALSE),
                                         (1, 'STD23004', TRUE),
                                         (1, 'STD23006', FALSE),
-                                        (1, 'STD230010', TRUE),
+                                        (1, 'STD23010', TRUE),
                                         (2, 'STD23002', TRUE),
                                         (2, 'STD23006', FALSE),
                                         (2, 'STD23005', TRUE),
@@ -90,9 +90,9 @@ CREATE TABLE absence (
                                         (4, 'STD23001', FALSE),
                                         (4, 'STD22003', TRUE),
                                         (3, 'STD23004', FALSE),
-                                        (3, 'STD23001', FALSE);
+                                        (3, 'STD23001', FALSE),
                                         (3, 'STD23006', FALSE),
-                                        (3, 'STD230011', FALSE);
+                                        (3, 'STD23011', FALSE);
 
 
                                     -- JUSTIFICATION TABLE --
@@ -114,11 +114,6 @@ INSERT INTO justification (studentId, courseId, type, description, date)
         ('STD23005', 2, 'Personal', 'Personal reasons', '2024-09-15'),
         ('STD22003', 4, 'Medical', 'Doctor s note provided', '2024-09-22');
 
-
-                                    -- PAGINATION --
-
-
-SELECT * FROM student LIMIT 5 OFFSET 5;
 
                                     -- COR TABLE --
 

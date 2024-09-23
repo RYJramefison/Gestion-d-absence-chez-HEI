@@ -189,8 +189,7 @@ public class Controllers {
     }
 
     @PutMapping("/justification/{studentId}/{courseId}")
-    public void updateJustification(@PathVariable String studentId, @PathVariable int courseId,
-                                    @RequestBody Justification justification) {
+    public void updateJustification(@PathVariable String studentId, @PathVariable int courseId, @RequestBody Justification justification) {
         services.updateJustification(studentId, courseId, justification);
     }
 
