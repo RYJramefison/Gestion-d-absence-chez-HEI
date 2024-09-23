@@ -5,7 +5,6 @@ import school.hei.gestion_des_absences_chez_hei.entity.*;
 
 import java.sql.*;
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.*;
 
 @Repository
@@ -219,7 +218,7 @@ public class ImplementDAO implements DAO {
                         res.getString("name"),
                         res.getTimestamp("startCourse").toLocalDateTime(),
                         res.getTimestamp("endCourse").toLocalDateTime(),
-                        getPresenceSheet(res.getInt("id")) // Récupère la liste des étudiants absents
+                        getPresenceSheet(res.getInt("id"))
                 );
                 courses.add(course);
             }
@@ -236,8 +235,8 @@ public class ImplementDAO implements DAO {
         String sql = "SELECT * FROM course LIMIT ? OFFSET ?";
 
         try (PreparedStatement stm = this.connection.getConnection().prepareStatement(sql)) {
-            stm.setInt(1, limit);  // Spécifier combien de résultats récupérer
-            stm.setInt(2, offset); // Spécifier l'offset pour la pagination
+            stm.setInt(1, limit);
+            stm.setInt(2, offset);
 
             try (ResultSet res = stm.executeQuery()) {
                 while (res.next()) {
@@ -246,7 +245,7 @@ public class ImplementDAO implements DAO {
                             res.getString("name"),
                             res.getTimestamp("startCourse").toLocalDateTime(),
                             res.getTimestamp("endCourse").toLocalDateTime(),
-                            getPresenceSheet(res.getInt("id")) // Récupère la liste des étudiants absents
+                            getPresenceSheet(res.getInt("id"))
                     );
                     courses.add(course);
                 }
@@ -275,7 +274,7 @@ public class ImplementDAO implements DAO {
                         res.getString("name"),
                         res.getTimestamp("startCourse").toLocalDateTime(),
                         res.getTimestamp("endCourse").toLocalDateTime(),
-                        getPresenceSheet(id) // Récupère la liste des étudiants absents
+                        getPresenceSheet(id)
                 );
             }
 
@@ -372,8 +371,8 @@ public class ImplementDAO implements DAO {
         String sql = "SELECT * FROM admin LIMIT ? OFFSET ?";
 
         try (PreparedStatement stm = this.connection.getConnection().prepareStatement(sql)) {
-            stm.setInt(1, limit);  // Limite du nombre d'administrateurs à récupérer
-            stm.setInt(2, offset); // Définir l'offset pour la pagination
+            stm.setInt(1, limit);
+            stm.setInt(2, offset);
 
             try (ResultSet res = stm.executeQuery()) {
                 while (res.next()) {
@@ -492,7 +491,7 @@ public class ImplementDAO implements DAO {
              ResultSet res = stm.executeQuery(sql)) {
 
             while (res.next()) {
-                Map<String, Object> absence = new LinkedHashMap<>(); // Utiliser LinkedHashMap pour maintenir l'ordre
+                Map<String, Object> absence = new LinkedHashMap<>(); // maintenir l'ordre
                 absence.put("studentId", res.getString("studentId"));
                 absence.put("courseName", res.getString("courseName"));
                 absence.put("startCourse", res.getTimestamp("startCourse").toLocalDateTime());
@@ -780,7 +779,7 @@ public class ImplementDAO implements DAO {
     @Override
     public List<Map<String, Object>> getAllCORs() {
         List<Map<String, Object>> cors = new ArrayList<>();
-        String sql = "SELECT c.id AS corId, c.etat, c.date, s.id AS studentId, s.firstName, s.lastName " +
+        String sql = "SELECT c.id AS corId, c.status, c.date, s.id AS studentId, s.firstName, s.lastName, s.universityYears, s.genre, s.status AS studentStatus " +
                 "FROM cor c " +
                 "JOIN student s ON c.studentID = s.id";
 
@@ -790,11 +789,14 @@ public class ImplementDAO implements DAO {
             while (res.next()) {
                 Map<String, Object> cor = new LinkedHashMap<>();
                 cor.put("corId", res.getInt("corId"));
-                cor.put("etat", res.getString("etat"));
-                cor.put("date", res.getDate("date").toLocalDate());  // Utiliser LocalDate
+                cor.put("status", res.getString("status"));
+                cor.put("date", res.getDate("date").toLocalDate());
                 cor.put("studentId", res.getString("studentId"));
                 cor.put("studentFirstName", res.getString("firstName"));
                 cor.put("studentLastName", res.getString("lastName"));
+                cor.put("universityYears", res.getString("universityYears"));
+                cor.put("genre", res.getString("genre"));
+                cor.put("studentStatus", res.getString("studentStatus"));
                 cors.add(cor);
             }
         } catch (SQLException e) {
@@ -807,7 +809,7 @@ public class ImplementDAO implements DAO {
     @Override
     public List<Map<String, Object>> getAllCORs(int limit, int offset) {
         List<Map<String, Object>> cors = new ArrayList<>();
-        String sql = "SELECT c.id AS corId, c.etat, c.date, s.id AS studentId, s.firstName, s.lastName " +
+        String sql = "SELECT c.id AS corId, c.status, c.date, s.id AS studentId, s.firstName, s.lastName, s.universityYears, s.genre, s.status AS studentStatus " +
                 "FROM cor c " +
                 "JOIN student s ON c.studentID = s.id " +
                 "LIMIT ? OFFSET ?";
@@ -820,11 +822,14 @@ public class ImplementDAO implements DAO {
                 while (res.next()) {
                     Map<String, Object> cor = new LinkedHashMap<>();
                     cor.put("corId", res.getInt("corId"));
-                    cor.put("etat", res.getString("etat"));
+                    cor.put("status", res.getString("status"));
                     cor.put("date", res.getDate("date").toLocalDate());
                     cor.put("studentId", res.getString("studentId"));
                     cor.put("studentFirstName", res.getString("firstName"));
                     cor.put("studentLastName", res.getString("lastName"));
+                    cor.put("universityYears", res.getString("universityYears"));
+                    cor.put("genre", res.getString("genre"));
+                    cor.put("studentStatus", res.getString("studentStatus"));
                     cors.add(cor);
                 }
             }
@@ -838,7 +843,7 @@ public class ImplementDAO implements DAO {
     @Override
     public Map<String, Object> getCOR(String studentId, int corId) {
         Map<String, Object> cor = null;
-        String sql = "SELECT c.id AS corId, c.etat, c.date, s.id AS studentId, s.firstName, s.lastName " +
+        String sql = "SELECT c.id AS corId, c.status, c.date, s.id AS studentId, s.firstName, s.lastName, s.universityYears, s.genre, s.status AS studentStatus " +
                 "FROM cor c " +
                 "JOIN student s ON c.studentID = s.id " +
                 "WHERE c.studentID = ? AND c.id = ?";
@@ -851,11 +856,14 @@ public class ImplementDAO implements DAO {
                 if (res.next()) {
                     cor = new LinkedHashMap<>();
                     cor.put("corId", res.getInt("corId"));
-                    cor.put("etat", res.getString("etat"));
+                    cor.put("status", res.getString("status"));
                     cor.put("date", res.getDate("date").toLocalDate());
                     cor.put("studentId", res.getString("studentId"));
                     cor.put("studentFirstName", res.getString("firstName"));
                     cor.put("studentLastName", res.getString("lastName"));
+                    cor.put("universityYears", res.getString("universityYears"));
+                    cor.put("genre", res.getString("genre"));
+                    cor.put("studentStatus", res.getString("studentStatus"));
                 }
             }
         } catch (SQLException e) {
@@ -867,12 +875,12 @@ public class ImplementDAO implements DAO {
 
     @Override
     public void saveCOR(COR cor) {
-        String sql = "INSERT INTO cor (etat, date, studentID) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO cor (status, date, studentID) VALUES (?, ?, ?)";
 
         try (Connection conn = this.connection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setString(1, cor.getEtat());
+            ps.setString(1, cor.getStatus());
             ps.setDate(2, Date.valueOf(cor.getDate()));
             ps.setString(3, cor.getStudentID());
 
@@ -885,12 +893,12 @@ public class ImplementDAO implements DAO {
 
     @Override
     public void updateCOR(String studentId, int corId, COR cor) {
-        String sql = "UPDATE cor SET etat = ?, date = ? WHERE studentID = ? AND id = ?";
+        String sql = "UPDATE cor SET status = ?, date = ? WHERE studentID = ? AND id = ?";
 
         try (Connection conn = this.connection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setString(1, cor.getEtat());
+            ps.setString(1, cor.getStatus());
             ps.setDate(2, Date.valueOf(cor.getDate()));
             ps.setString(3, studentId);
             ps.setInt(4, corId);
@@ -918,4 +926,5 @@ public class ImplementDAO implements DAO {
             e.printStackTrace();
         }
     }
+
 }

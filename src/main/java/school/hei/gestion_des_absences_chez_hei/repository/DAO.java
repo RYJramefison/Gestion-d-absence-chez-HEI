@@ -21,6 +21,7 @@ public interface DAO {
 
     void deleteStudent(String id);
 
+
     // CRUD COURSE
 
     List<Course> getAllCourse();
@@ -35,6 +36,7 @@ public interface DAO {
 
     void deleteCourse(int id);
 
+
     // CRUD ADMIN
 
     List<Admin> getAllAdmin();
@@ -48,6 +50,7 @@ public interface DAO {
     void updateAdmin(String id, Admin admin);
 
     void deleteAdmin(String id);
+
 
     // CRUD ABSENCE
 
@@ -64,6 +67,7 @@ public interface DAO {
 
     void deleteAbsence(String studentId, int courseId);
 
+
     // CRUD JUSTIFICATION
 
 
@@ -78,6 +82,7 @@ public interface DAO {
     void updateJustification(String studentId, int courseId, Justification justification);
 
     void deleteJustification(String studentId, int courseId);
+
 
     // CRUD COR
 

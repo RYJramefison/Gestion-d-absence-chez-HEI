@@ -1,6 +1,5 @@
 package school.hei.gestion_des_absences_chez_hei.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

@@ -3,7 +3,6 @@ package school.hei.gestion_des_absences_chez_hei.entity;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Getter
 @ToString
@@ -14,7 +13,7 @@ import java.time.LocalDateTime;
 public class COR {
     private int id;
 
-    private String etat;
+    private String status;
 
     private LocalDate date;
 

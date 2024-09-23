@@ -107,13 +107,13 @@ SELECT * FROM student LIMIT 5 OFFSET 5;
 
                                     CREATE TABLE cor (
                                                          id SERIAL PRIMARY KEY,
-                                                         etat VARCHAR(50) NOT NULL,
+                                                         status VARCHAR(50) NOT NULL,
                                                          date DATE NOT NULL,
                                                          studentId VARCHAR(20) NOT NULL,
                                                          FOREIGN KEY (studentId) REFERENCES student(id)
                                     );
 
-                                    INSERT INTO cor (etat, date, studentId) VALUES
+                                    INSERT INTO cor (status, date, studentId) VALUES
                                                                                 ('Convocation', '2024-09-15', 'STD23001'),
                                                                                 ('Observation', '2024-08-30', 'STD23002');
 

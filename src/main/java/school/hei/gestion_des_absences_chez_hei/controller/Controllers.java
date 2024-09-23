@@ -109,19 +109,19 @@ public class Controllers {
         return services.getOneAdmin(id);
     }
 
-    @PostMapping("/addAdmin")
+    @PostMapping("/admin")
     public ResponseEntity<Void> createAdmin(@RequestBody Admin toAdd) {
         services.addAdmin(toAdd);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @DeleteMapping("/deleteAdmin/{id}")
+    @DeleteMapping("/admin/{id}")
     public ResponseEntity<Void> deleteAdmin(@PathVariable String id) {
         services.removeAdmin(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @PutMapping("/updateAdmin/{id}")
+    @PutMapping("/admin/{id}")
     public ResponseEntity<Void> updateAdmin(@PathVariable String id, @RequestBody Admin admin) {
         services.updateAdmin(id, admin);
         return ResponseEntity.status(HttpStatus.OK).build();
@@ -178,7 +178,7 @@ public class Controllers {
         return services.getAllJustifications(size, offset);
     }
 
-    @GetMapping("/justification/{studentId}/{courseId}")
+    @GetMapping("/justifications/{studentId}/{courseId}")
     public Map<String, Object> getJustification(@PathVariable String studentId, @PathVariable int courseId) {
         return services.getJustification(studentId, courseId);
     }
