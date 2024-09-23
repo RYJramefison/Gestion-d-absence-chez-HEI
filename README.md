@@ -8,6 +8,6 @@
 
 ## Diagramme UML
 
-Voici le diagramme UML représentant l'architecture du système :
+Voici le diagramme UML mis à jour illustrant l'architecture du système :
 
 ![Diagramme UML](https://drive.google.com/uc?id=1EJYpECh1BUHnSy3oU6evW237N_Xefaon)
