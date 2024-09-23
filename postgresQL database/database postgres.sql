@@ -16,7 +16,7 @@ INSERT INTO student (id, firstName, lastName, email, contact, universityYears, g
 VALUES
     ('STD23001', 'John', 'Doe', 'john.doe@example.com', '1234567890', 'L1', 'M', 'actif'),
     ('STD23002', 'Jane', 'Smith', 'jane.smith@example.com', '0987654321', 'L1', 'F', 'inactif'),
-    ('STD22003', 'Alex', 'Johnson', 'alex.johnson@example.com', '1122334455', 'L1', 'M', 'actif'),
+    ('STD23003', 'Alex', 'Johnson', 'alex.johnson@example.com', '1122334455', 'L1', 'M', 'actif'),
     ('STD23004', 'Emily', 'Davis', 'emily.davis@example.com', '5566778899', 'L1', 'F', 'actif'),
     ('STD23005', 'Michael', 'Brown', 'michael.brown@example.com', '1231231234', 'L1', 'M', 'actif'),
     ('STD23006', 'Sarah', 'Taylor', 'sarah.taylor@example.com', '3213214321', 'L1', 'F', 'actif'),
@@ -86,9 +86,9 @@ VALUES
                                         (2, 'STD23002', TRUE),
                                         (2, 'STD23006', FALSE),
                                         (2, 'STD23005', TRUE),
-                                        (2, 'STD22003', FALSE),
+                                        (2, 'STD23003', FALSE),
                                         (4, 'STD23001', FALSE),
-                                        (4, 'STD22003', TRUE),
+                                        (4, 'STD23003', TRUE),
                                         (3, 'STD23004', FALSE),
                                         (3, 'STD23001', FALSE),
                                         (3, 'STD23006', FALSE),
@@ -109,10 +109,10 @@ VALUES
 INSERT INTO justification (studentId, courseId, type, description, date)
     VALUES
         ('STD23004', 1, 'Medical', 'Medical appointment', '2024-09-18'),
-        ('STD230010', 1, 'Work', 'Work-related absence', '2024-09-20'),
+        ('STD23010', 1, 'Work', 'Work-related absence', '2024-09-20'),
         ('STD23002', 2, 'Family', 'Family emergency', '2024-09-12'),
         ('STD23005', 2, 'Personal', 'Personal reasons', '2024-09-15'),
-        ('STD22003', 4, 'Medical', 'Doctor s note provided', '2024-09-22');
+        ('STD23003', 4, 'Medical', 'Doctor s note provided', '2024-09-22');
 
 
                                     -- COR TABLE --
