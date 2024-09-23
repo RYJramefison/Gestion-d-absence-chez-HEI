@@ -18,7 +18,16 @@ VALUES
     ('STD23002', 'Jane', 'Smith', 'jane.smith@example.com', '0987654321', 'L1', 'F', 'inactif'),
     ('STD22003', 'Alex', 'Johnson', 'alex.johnson@example.com', '1122334455', 'L1', 'M', 'actif'),
     ('STD23004', 'Emily', 'Davis', 'emily.davis@example.com', '5566778899', 'L1', 'F', 'actif'),
-    ('STD22055', 'Michael', 'Brown', 'michael.brown@example.com', '6677889900', 'L2', 'M', 'actif');
+    ('STD23005', 'Michael', 'Brown', 'michael.brown@example.com', '1231231234', 'L2', 'M', 'actif'),
+    ('STD23006', 'Sarah', 'Taylor', 'sarah.taylor@example.com', '3213214321', 'L2', 'F', 'actif'),
+    ('STD23007', 'David', 'Wilson', 'david.wilson@example.com', '9876543210', 'L2', 'M', 'inactif'),
+    ('STD23008', 'Olivia', 'Martinez', 'olivia.martinez@example.com', '7654321098', 'L1', 'F', 'actif'),
+    ('STD23009', 'Daniel', 'Anderson', 'daniel.anderson@example.com', '4567890123', 'L1', 'M', 'actif'),
+    ('STD23010', 'Sophia', 'Thomas', 'sophia.thomas@example.com', '6547893210', 'L3', 'F', 'inactif'),
+    ('STD23011', 'James', 'Jackson', 'james.jackson@example.com', '2345678901', 'L3', 'M', 'actif'),
+    ('STD23012', 'Isabella', 'White', 'isabella.white@example.com', '3456789012', 'L3', 'F', 'actif'),
+    ('STD23013', 'Ethan', 'Harris', 'ethan.harris@example.com', '7654321987', 'L2', 'M', 'inactif'),
+    ('STD23014', 'Mia', 'Clark', 'mia.clark@example.com', '8765432109', 'L2', 'F', 'actif');
 
 
 
@@ -35,8 +44,11 @@ CREATE TABLE admin (
 INSERT INTO admin (id, firstName, lastName, email, contact)
 VALUES
     ('001', 'Alice', 'Williams', 'alice.williams@example.com', '1234567890'),
-    ('002', 'Bob', 'Johnson', 'bob.johnson@example.com', '0987654321');
-
+    ('002', 'Bob', 'Johnson', 'bob.johnson@example.com', '0987654321'),
+    ('003', 'Charlie', 'Brown', 'charlie.brown@example.com', '1112223334'),
+    ('004', 'Diana', 'Evans', 'diana.evans@example.com', '5556667778'),
+    ('005', 'Ethan', 'Green', 'ethan.green@example.com', '9998887776'),
+    ('006', 'Fiona', 'Harris', 'fiona.harris@example.com', '4445556667');
 
                                     -- COURSE TABLE --
 
@@ -49,11 +61,11 @@ CREATE TABLE course (
 
 INSERT INTO course (name, startCourse, endCourse)
 VALUES
-    ('Introduction to Programming', '2024-09-01 09:00:00', '2024-09-01 12:00:00'),
-    ('Database Systems', '2024-09-15 13:00:00', '2024-09-15 15:00:00'),
-    ('Web Development', '2024-10-01 10:00:00', '2024-10-01 14:00:00'),
-    ('Data Structures', '2024-10-15 11:00:00', '2024-10-15 13:00:00'),
-    ('Operating Systems', '2024-11-01 08:00:00', '2024-11-01 12:00:00');
+    ('WEB1', '2024-09-01 09:00:00', '2024-09-01 12:00:00'),
+    ('PROG2', '2024-09-15 13:00:00', '2024-09-15 15:00:00'),
+    ('SYS2', '2024-10-01 10:00:00', '2024-10-01 14:00:00'),
+    ('LV1', '2024-10-15 11:00:00', '2024-10-15 13:00:00'),
+    ('DONNEE1', '2024-11-01 08:00:00', '2024-11-01 12:00:00');
 
 
                                     -- ABSENCE TABLE --
@@ -69,13 +81,18 @@ CREATE TABLE absence (
                                     VALUES
                                         (1, 'STD23001', FALSE),
                                         (1, 'STD23004', TRUE),
+                                        (1, 'STD23006', FALSE),
+                                        (1, 'STD230010', TRUE),
                                         (2, 'STD23002', TRUE),
+                                        (2, 'STD23006', FALSE),
+                                        (2, 'STD23005', TRUE),
                                         (2, 'STD22003', FALSE),
                                         (4, 'STD23001', FALSE),
                                         (4, 'STD22003', TRUE),
                                         (3, 'STD23004', FALSE),
-                                        (3, 'STD22055', TRUE),
                                         (3, 'STD23001', FALSE);
+                                        (3, 'STD23006', FALSE),
+                                        (3, 'STD230011', FALSE);
 
 
                                     -- JUSTIFICATION TABLE --
@@ -90,12 +107,12 @@ CREATE TABLE justification (
 );
 
 INSERT INTO justification (studentId, courseId, type, description, date)
-VALUES
-    ('STD23001', 1, 'Medical', 'Absent due to illness', '2024-09-10'),
-    ('STD23002', 2, 'Family', 'Family emergency', '2024-09-12'),
-    ('STD23003', 3, 'Personal', 'Personal reasons', '2024-09-15'),
-    ('STD23004', 4, 'Medical', 'Medical appointment', '2024-09-18'),
-    ('STD23005', 5, 'Work', 'Work-related absence', '2024-09-20');
+    VALUES
+        ('STD23004', 1, 'Medical', 'Medical appointment', '2024-09-18'),
+        ('STD230010', 1, 'Work', 'Work-related absence', '2024-09-20'),
+        ('STD23002', 2, 'Family', 'Family emergency', '2024-09-12'),
+        ('STD23005', 2, 'Personal', 'Personal reasons', '2024-09-15'),
+        ('STD22003', 4, 'Medical', 'Doctor s note provided', '2024-09-22');
 
 
                                     -- PAGINATION --
@@ -115,5 +132,5 @@ SELECT * FROM student LIMIT 5 OFFSET 5;
 
                                     INSERT INTO cor (status, date, studentId) VALUES
                                                                                 ('Convocation', '2024-09-15', 'STD23001'),
-                                                                                ('Observation', '2024-08-30', 'STD23002');
+                                                                                ('Observation', '2024-08-30', 'STD23006');
 
